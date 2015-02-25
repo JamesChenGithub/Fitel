@@ -116,7 +116,6 @@
     _player = [[MPMoviePlayerController alloc] initWithContentURL:nil];
 //    [_player setContentURL:nil];
     [_player setMovieSourceType:MPMovieSourceTypeFile];
-    
 //    [[_player view] setFrame:self.view.bounds];
 //    [_player view].backgroundColor = [UIColor greenColor];
     
