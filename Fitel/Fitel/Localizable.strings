@@ -1,0 +1,83 @@
+/* 
+  Localizable.strings
+  iLunch
+
+  Created by James on 15-1-4.
+  Copyright (c) 2015年 James Chen. All rights reserved.
+*/
+
+
+// 通用
+"kOK_Str" = "确定";
+"kCancel_Str" = "取消";
+"kBack_Str" = "返回";
+//"kInputErr_Str" = "输入有误！";
+//"kSetting_Str" = "设置";
+//"kRequestError_Str" = "请求出错";
+//
+//
+"kDownRefreshLoadOver" = "没有更多了";
+
+"kDownReleaseToRefresh" = "松开即可更新...";
+
+"kDownDragUpToRefresh" = "上拉即可更新...";
+
+"kDownRefreshLoading" = "加载中...";
+//
+//
+//// 登录
+//"kLogin_Account_Str" = "帐号";
+//"kLogin_Password_Str" = "密码";
+//"kLogin_Login_Str" = "登录";
+//"kLogin_Account_Empty_Str" = "请输入帐号！";
+//"kLogin_Password_Empty_Str" = "请输入密码！";
+
+// =============================================
+// Tabbar
+"kTabBar_Main_Title_Str" = "瘦身训练";
+"kTabBar_Calculate_Title_Str" = "瘦身生理计算";
+"kTabBar_Setting_Title_Str" = "设置";
+
+// 首页
+//"kMain_Title_Str" = "爱午餐";
+//"kMain_Book_Str" = "订座";
+//"kMain_Pack_Str" = "打包";
+
+// 设置
+"kSetting_Title_Str" = "瘦身训练";
+"kSettingCell_AboutUs_Str" = "关于我们";
+"kSettingCell_OrderZone_Str" = "团购专区";
+"kSettingCell_CheckUpdate_Str" = "检查更新";
+"kSettingCell_ClearCache_Str" = "清除缓存";
+
+// 计算
+"kCalculate_Gender_Str" = "性别";
+"kCalculate_Gender_Male_Str" = "男";
+"kCalculate_Gender_Female_Str" = "女";
+"kCalculate_Age_Str" = "年龄Age(Years)";
+"kCalculate_Height_Str" = "身高Height(cm)";
+"kCalculate_Weight_Str" = "体重Weight(Kg)";
+
+"kCalculate_WorkType_Str" = "工作类型";
+"kCalculate_WorkType_0_Str" = "基礎代謝量（躺著不動一整天)";
+"kCalculate_WorkType_1_Str" = "辦公室坐整天型（幾乎很少或沒運動）";
+"kCalculate_WorkType_2_Str" = "輕度活動型（每週運動1-2次）";
+"kCalculate_WorkType_3_Str" = "中度運動型（每週運動3到5次）";
+"kCalculate_WorkType_4_Str" = "重度運動型（每週運動6-7次）";
+"kCalculate_WorkType_5_Str" = "體力勞動型（每天重度運動或重勞力工作者）";
+
+
+"kCalculate_Calculate_Str" = "计算Calculate";
+
+"kCalculate_NotFill_Str" = "数据没有填写完整，会造成数据不准确哦";
+
+
+"kCalculateResult_ResultTitle_Str" = "减重消耗卡路里计算器\nDiet Calculator";
+"kCalculateResult_CloseTitle_Str" = "关闭Close";
+
+
+
+
+
+
+
