@@ -28,4 +28,6 @@
 
 @property (nonatomic, strong) NSMutableArray *trainItems;
 
+@property (nonatomic, strong) TrainKeyValue *selectKV;
+
 @end

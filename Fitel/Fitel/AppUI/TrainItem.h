@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@interface TrainCacheOperation : MKNetworkOperation
+
+@end
+
 
 @class TrainItem;
 @interface TrainKeyValue : NSObject

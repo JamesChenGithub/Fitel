@@ -237,14 +237,15 @@
 - (void)onDownloadChanged:(NSNotification *)notify
 {
     TrainKeyValue *item = (TrainKeyValue *)notify.object;
-    if ([item canPlay])
+    
+    if (item == self.selectKV)
     {
-        TrainViewController *vc = [[TrainViewController alloc] init];
-        vc.trainKeyValue = item;
-        [[AppDelegate sharedAppDelegate] pushViewController:vc];
-        [[HUDHelper sharedInstance] stopLoading];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:kTrainItemDownloadCompleted object:nil];
-        [item startCache];
+        if ([item canPlay])
+        {
+            TrainViewController *vc = [[TrainViewController alloc] init];
+            vc.trainKeyValue = item;
+            [[AppDelegate sharedAppDelegate] pushViewController:vc];
+        }
     }
 }
 
@@ -262,6 +263,7 @@
     }
     else
     {
+        self.selectKV = item;
         [[HUDHelper sharedInstance] loading];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDownloadChanged:) name:kTrainItemDownloadCompleted object:nil];
         [item startCache];

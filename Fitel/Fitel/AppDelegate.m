@@ -86,6 +86,12 @@
     
 }
 
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    [super applicationWillTerminate:application];
+    [_cacheEngine cancelAllOperations];
+}
+
 - (MKNetworkEngine *)cacheEngine
 {
     if (!_cacheEngine)

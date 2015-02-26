@@ -8,6 +8,23 @@
 
 #import "TrainItem.h"
 
+@implementation TrainCacheOperation
+
+- (void)cancel
+{
+    [super cancel];
+    
+    NSString *docPath = [PathUtility getDocumentPath];
+    
+    [PathUtility createDirectoryAtDocument:@"Video"];
+    
+    NSString *videoPath = [NSString stringWithFormat:@"%@/Video/", docPath];
+    NSString *fileName = [self.url md5];
+    NSString *path = [NSString stringWithFormat:@"%@%@.mp4", videoPath, fileName];
+    [PathUtility deleteFileAtPath:path];
+}
+@end
+
 @implementation TrainKeyValue
 
 - (instancetype)initWithType:(NSInteger)type value:(NSArray *)value
@@ -27,16 +44,6 @@
 
 - (void)setType:(NSInteger)type
 {
-#define kTrain_Type1_Str                        Localized(@"kTrain_Type1_Str")
-#define kTrain_Type2_Str                        Localized(@"kTrain_Type2_Str")
-#define kTrain_Type3_Str                        Localized(@"kTrain_Type3_Str")
-#define kTrain_Type4_Str                        Localized(@"kTrain_Type4_Str")
-#define kTrain_Type5_Str                        Localized(@"kTrain_Type5_Str")
-#define kTrain_Type6_Str                        Localized(@"kTrain_Type6_Str")
-#define kTrain_Type7_Str                        Localized(@"kTrain_Type7_Str")
-#define kTrain_Type8_Str                        Localized(@"kTrain_Type8_Str")
-#define kTrain_Type9_Str                        Localized(@"kTrain_Type9_Str")
-#define kTrain_Type10_Str                       Localized(@"kTrain_Type10_Str")
     _type = type;
     switch (_type)
     {
@@ -98,6 +105,10 @@
 
 - (NSInteger)duration
 {
+    if (_type == 2)
+    {
+        return 65;
+    }
     return 20;
 }
 
@@ -168,7 +179,7 @@
         
         NSString *path = [NSString stringWithFormat:@"%@%@.mp4", dir, fileName];
         if (![PathUtility isExistFile:path]) {
-            MKNetworkOperation *op = [[MKNetworkOperation alloc] initWithURLString:item.videoPath params:nil httpMethod:@"Get"];
+            MKNetworkOperation *op = [[TrainCacheOperation alloc] initWithURLString:item.videoPath params:nil httpMethod:@"Get"];
             __weak typeof(self) ws = self;
             [op onDownloadProgressChanged:^(double progress) {
                 if (progress >= 1.0)
