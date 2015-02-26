@@ -119,7 +119,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
             
             
             UIBezierPath *circle2 = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:DEGREES_TO_RADIANS(startAngle) endAngle:DEGREES_TO_RADIANS(degrees) clockwise:YES];
-            [kPurpleColor setStroke];
+            [self.progressColor setStroke];
             circle2.lineWidth = strokeWidth;
             [circle2 stroke];
             
@@ -153,9 +153,10 @@ void playFinished(SystemSoundID ssID, void* clientData)
         [_timer invalidate];
         _elapseTime = 0;
         _duration = self.trainKV.playInterval;
+        self.progressColor = kBlueColor;
         self.pauseAction = @selector(onWait);
         _timerText.text = [NSString stringWithFormat:kTrain_Wait_Format_Str, (int)(_duration - _elapseTime)];
-        _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:self.pauseAction userInfo:nil repeats:YES];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:self.pauseAction userInfo:nil repeats:YES];
     }
 
 }
@@ -167,24 +168,25 @@ void playFinished(SystemSoundID ssID, void* clientData)
         [_timer invalidate];
         _elapseTime = 0;
         _duration = self.trainKV.playInterval;
+        self.progressColor = kDarkGrayColor;
         self.pauseAction = @selector(onSleep);
         _timerText.text = [NSString stringWithFormat:kTrain_Sleep_Format_Str, (int)(_duration - _elapseTime)];
-        _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:self.pauseAction userInfo:nil repeats:YES];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:self.pauseAction userInfo:nil repeats:YES];
     }
 }
 
 - (void)onWait
 {
-    _elapseTime += 0.5;
+    _elapseTime += 0.2;
     
     _timerText.text = [NSString stringWithFormat:kTrain_Wait_Format_Str, (int)(_duration - _elapseTime)];
     [self setNeedsDisplay];
-    if (_elapseTime == _duration - 4.5)
+    if (fabs(_elapseTime - ( _duration - 4.8)) < 0.001)
     {
         AudioServicesPlayAlertSound(_startID);
     }
     
-    if (_elapseTime >= _duration)
+    if (fabs(_elapseTime - _duration) < 0.001)
     {
         if (self.waitEndEvent)
         {
@@ -197,16 +199,16 @@ void playFinished(SystemSoundID ssID, void* clientData)
 
 - (void)onSleep
 {
-    _elapseTime += 0.5;
+    _elapseTime += 0.2;
     
     _timerText.text = [NSString stringWithFormat:kTrain_Sleep_Format_Str, (int)(_duration - _elapseTime)];
     [self setNeedsDisplay];
-    if (_elapseTime == _duration - 4.5)
+    if (fabs(_elapseTime - ( _duration - 4.8))<0.001)
     {
         AudioServicesPlayAlertSound(_startID);
     }
     
-    if (_elapseTime >= _duration)
+    if (fabs(_elapseTime - _duration) < 0.001)
     {
         if (self.sleepEndEvent)
         {
@@ -225,25 +227,26 @@ void playFinished(SystemSoundID ssID, void* clientData)
 
         _elapseTime = 0;
         _duration = self.trainKV.duration;
+        self.progressColor = kGreenColor;
         self.pauseAction = @selector(updateTime);
         _timerText.text = [NSString stringWithFormat:kTrain_Run_Format_Str, (int)(_duration - _elapseTime)];
-        _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:self.pauseAction userInfo:nil repeats:YES];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:self.pauseAction userInfo:nil repeats:YES];
     }
     
 }
 
 - (void)updateTime
 {
-    _elapseTime += 0.5;
+    _elapseTime += 0.2;
     
     _timerText.text = [NSString stringWithFormat:kTrain_Run_Format_Str, (int)(_duration - _elapseTime)];
     [self setNeedsDisplay];
-    if (_elapseTime == _duration - 0.5)
+    if (fabs(_elapseTime - ( _duration - 0.6))<0.001)
     {
         AudioServicesPlayAlertSound(_endId);
     }
     
-    if (_elapseTime >= _duration)
+    if (fabs(_elapseTime - _duration) < 0.001)
     {
         if (self.runEndEvent)
         {
@@ -279,7 +282,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
 }
 - (void)resume
 {
-    _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:self.pauseAction userInfo:nil repeats:YES];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:self.pauseAction userInfo:nil repeats:YES];
 }
 
 @end

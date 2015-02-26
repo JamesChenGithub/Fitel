@@ -109,6 +109,7 @@
 - (void)dealloc
 {
     [_timerView stop];
+    [_player stop];
 }
 
 - (void)viewWillAppear:(BOOL)animated

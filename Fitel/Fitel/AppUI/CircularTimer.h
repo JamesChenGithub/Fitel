@@ -23,6 +23,7 @@ typedef void (^CircularTimerEndEvent)(TrainKeyValue *trainKV);
 @property (nonatomic, readonly) UILabel *timerText;
 @property (nonatomic, assign) CGFloat elapseTime;
 @property (nonatomic, strong) TrainKeyValue *trainKV;
+@property (nonatomic, strong) UIColor *progressColor;
 
 @property (nonatomic, copy) CircularTimerEndEvent waitEndEvent;
 @property (nonatomic, copy) CircularTimerEndEvent runEndEvent;

@@ -115,7 +115,6 @@ static HUDHelper *_instance = nil;
                 _loadingHud.tag = 0;
                 [self addHUD:_loadingHud];
                 [_loadingHud show:YES];
-                [_loadingHud hide:YES afterDelay:kServiceRequestTimeOut];
             }
             if (_loadingHud)
             {

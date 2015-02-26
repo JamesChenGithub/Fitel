@@ -30,4 +30,6 @@
 
 @property (nonatomic, strong) TrainKeyValue *selectKV;
 
+@property (nonatomic, strong) MBProgressHUD *progressHUD;
+
 @end

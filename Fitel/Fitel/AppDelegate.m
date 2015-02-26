@@ -97,7 +97,7 @@
     if (!_cacheEngine)
     {
         _cacheEngine = [[MKNetworkEngine alloc] initWithHostName:@"112.74.104.11"];
-        [_cacheEngine useCache];
+//        [_cacheEngine useCache];
     }
     return _cacheEngine;
 }

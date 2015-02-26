@@ -27,6 +27,7 @@
 #define kAppTrainURL @"http://112.74.104.11/getVideosInfo.php"
 
 #define kTrainItemDownloadCompleted @"kTrainItemDownloadCompleted"
+#define kTrainItemDownloadProgress  @"kTrainItemDownloadProgress"
 
 
 

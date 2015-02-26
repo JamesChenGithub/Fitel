@@ -128,7 +128,9 @@
     {
         TrainItem *item0 = self.trainList[0];
         TrainItem *item1 = self.trainList[1];
-        if ([PathUtility isExistFile:[item0 cachePath]] && [PathUtility isExistFile:[item1 cachePath]])
+        BOOL isexist0 = [PathUtility isExistFile:[item0 cachePath]];
+        BOOL isexist1 = [PathUtility isExistFile:[item1 cachePath]];
+        if (isexist0 && isexist1)
         {
             return YES;
         }
@@ -147,6 +149,7 @@
         }
         
     }
+    
     return NO;
 }
 
@@ -173,15 +176,19 @@
     MKNetworkEngine *engine = [AppDelegate sharedAppDelegate].cacheEngine;
     
     NSString *dir = [self videoDir];
-    for (TrainItem *item in self.trainList)
+    for (NSInteger i = self.trainList.count - 1; i>=0; i--)
     {
+        TrainItem *item = self.trainList[i];
         NSString *fileName = [item.videoPath md5];
         
         NSString *path = [NSString stringWithFormat:@"%@%@.mp4", dir, fileName];
-        if (![PathUtility isExistFile:path]) {
+        if (![PathUtility isExistFile:path])
+        {
             MKNetworkOperation *op = [[TrainCacheOperation alloc] initWithURLString:item.videoPath params:nil httpMethod:@"Get"];
             __weak typeof(self) ws = self;
             [op onDownloadProgressChanged:^(double progress) {
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kTrainItemDownloadProgress object:ws userInfo:@{@"DownloadProgress":@(progress)}];
                 if (progress >= 1.0)
                 {
                     // 下载完成
@@ -193,6 +200,40 @@
         }
     }
 }
+
+
+//- (void)startCache
+//{
+//    NSURLSessionDownloadTask *task = [[NSURLSession sharedSession] downloadTaskWithURL:(NSURL *) completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+//        
+//    }];
+//    
+//    NSString *dir = [self videoDir];
+//    for (NSInteger i = self.trainList.count - 1; i>=0; i--)
+//    {
+//        TrainItem *item = self.trainList[i];
+//        NSString *fileName = [item.videoPath md5];
+//        
+//        NSString *path = [NSString stringWithFormat:@"%@%@.mp4", dir, fileName];
+//        if (![PathUtility isExistFile:path])
+//        {
+//            MKNetworkOperation *op = [[MKNetworkOperation alloc] initWithURLString:item.videoPath params:nil httpMethod:@"Get"];
+//            __weak typeof(self) ws = self;
+//            [op onDownloadProgressChanged:^(double progress) {
+//                
+//                [[NSNotificationCenter defaultCenter] postNotificationName:kTrainItemDownloadProgress object:ws userInfo:@{@"DownloadProgress":@(progress)}];
+//                if (progress >= 1.0)
+//                {
+//                    // 下载完成
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:kTrainItemDownloadCompleted object:ws];
+//                }
+//            }];
+//            [op addDownloadStream:[NSOutputStream outputStreamToFileAtPath:path append:YES]];
+//            [engine enqueueOperation:op];
+//            break;
+//        }
+//    }
+//}
 
 - (void)cancelCache
 {
