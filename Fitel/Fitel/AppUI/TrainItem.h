@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+
+@class TrainItem;
 @interface TrainKeyValue : NSObject
 
 @property (nonatomic, copy) NSString *key;
@@ -16,6 +18,7 @@
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, readonly) NSInteger playInterval;
 @property (nonatomic, readonly) NSInteger duration;
+@property (nonatomic, strong) TrainItem *playingItem;
 
 - (instancetype)initWithType:(NSInteger)type value:(NSArray *)value;
 
@@ -24,6 +27,9 @@
 - (void)startCache;
 
 - (void)cancelCache;
+
+- (TrainItem *)nextPlayingItem;
+- (TrainItem *)getNextPlayingItem;
 
 
 @end

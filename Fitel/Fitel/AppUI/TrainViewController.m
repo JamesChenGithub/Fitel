@@ -10,12 +10,11 @@
 
 @implementation TrainKeyValueButton
 
-- (instancetype)initWith:(TrainKeyValue *)value
+- (instancetype)initWith:(NSString *)title
 {
     if (self = [super init])
     {
-        self.trainKeyValue = value;
-        [self setTitle:[NSString stringWithFormat:@"%d", (int)self.trainKeyValue.type] forState:UIControlStateNormal];
+        [self setTitle:title forState:UIControlStateNormal];
         self.layer.borderColor = kGreenColor.CGColor;
         self.layer.borderWidth = 3;
         self.layer.masksToBounds = YES;
@@ -26,7 +25,7 @@
 - (void)setSelected:(BOOL)selected
 {
     [super setSelected:selected];
-    self.layer.borderColor = selected ? kRedColor.CGColor : kGreenColor.CGColor;
+    self.backgroundColor = selected ? kGreenColor : kClearColor;
 }
 
 - (void)layoutSubviews
@@ -44,7 +43,7 @@
 
 @implementation TrainKeyListView
 
-- (instancetype)initWith:(NSMutableArray *)list
+- (instancetype)init
 {
     if (self = [super init])
     {
@@ -52,9 +51,9 @@
         [self addSubview:_scrollView];
         
         self.trainList = [NSMutableArray array];
-        for (TrainKeyValue *kv in list)
+        for (NSInteger i = 1; i <= 10; i++)
         {
-            TrainKeyValueButton *btn = [[TrainKeyValueButton alloc] initWith:kv];
+            TrainKeyValueButton *btn = [[TrainKeyValueButton alloc] initWith:[NSString stringWithFormat:@"%d", (int)i]];
             [_scrollView addSubview:btn];
             [self.trainList addObject:btn];
         }
@@ -63,27 +62,40 @@
     return self;
 }
 
+- (void)select
+{
+    for (TrainKeyValueButton *btn in self.trainList)
+    {
+        if (!btn.selected)
+        {
+            btn.selected = YES;
+            break;
+        }
+    }
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     [self relayoutFrameOfSubViews];
 }
 
+#define kHorMargin 5
 - (void)relayoutFrameOfSubViews
 {
     CGRect rect = self.bounds;
     _scrollView.frame = rect;
     rect = _scrollView.bounds;
     NSInteger count = self.trainList.count;
-    if (count * 30 + (count + 1) * kDefaultMargin > rect.size.width)
+    if (count * 30 + (count + 1) * kHorMargin > rect.size.width)
     {
-        _scrollView.contentSize = CGSizeMake(count * 30 + (count + 1) * kDefaultMargin, 0);
-        [_scrollView gridViews:self.trainList inColumn:count size:CGSizeMake(30, 30) margin:CGSizeMake(kDefaultMargin, kDefaultMargin) inRect:CGRectInset(rect, kDefaultMargin, kDefaultMargin)];
+        _scrollView.contentSize = CGSizeMake(count * 30 + (count + 1) * kHorMargin, 0);
+        [_scrollView gridViews:self.trainList inColumn:count size:CGSizeMake(30, 30) margin:CGSizeMake(kHorMargin, kDefaultMargin) inRect:CGRectInset(rect, kHorMargin, kDefaultMargin)];
     }
     else
     {
         _scrollView.contentSize = CGSizeMake(0, 0);
-        [_scrollView gridViews:self.trainList inColumn:count size:CGSizeMake(30, 30) margin:CGSizeMake(kDefaultMargin, kDefaultMargin) inRect:CGRectInset(rect, (rect.size.width - (count * 30 + (count - 1) * kDefaultMargin))/2, kDefaultMargin)];
+        [_scrollView gridViews:self.trainList inColumn:count size:CGSizeMake(30, 30) margin:CGSizeMake(kHorMargin, kDefaultMargin) inRect:CGRectInset(rect, (rect.size.width - (count * 30 + (count - 1) * kHorMargin))/2, kDefaultMargin)];
     }
     
     
@@ -93,6 +105,11 @@
 
 
 @implementation TrainViewController
+
+- (void)dealloc
+{
+    [_timerView stop];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -105,30 +122,85 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = YES;
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapPlayOrPause:)];
+    tap.numberOfTapsRequired = 1;
+    tap.numberOfTouchesRequired = 1;
+    [self.view addGestureRecognizer:tap];
+}
+
+- (void)onTapPlayOrPause:(UITapGestureRecognizer *)tap
+{
+    if (tap.state == UIGestureRecognizerStateEnded)
+    {
+        if (_player.playbackState == MPMoviePlaybackStatePlaying)
+        {
+            [_player pause];
+            [_timerView pause];
+        }
+        else if (_player.playbackState == MPMoviePlaybackStatePaused)
+        {
+            [_player play];
+            [_timerView resume];
+        }
+        else
+        {
+            [_timerView pauseOrResume];
+        }
+    }
+}
+
+- (void)onWaitEnd:(TrainKeyValue *)kv
+{
+    _videoImageView.hidden = YES;
+    TrainItem *item = [kv nextPlayingItem];
+    if (item)
+    {
+        [_videoImageView sd_setImageWithURL:[NSURL URLWithString:item.imagePath] placeholderImage:_videoImageView.image];
+    }
+    
+
+    NSString *path = [kv.playingItem cachePath];
+    NSURL *ur = [NSURL fileURLWithPath:path];
+    [_player setContentURL:ur];
+    [_player play];
+    
+}
+
+- (void)onRunEnd:(TrainKeyValue *)kv
+{
+    _videoImageView.hidden = NO;
+    [_player stop];
+}
+
+- (void)onSleepEnd:(TrainKeyValue *)kv
+{
+    TrainItem *item = [kv nextPlayingItem];
+    if (!item)
+    {
+        [_listView select];
+    }
+    [kv getNextPlayingItem];
+    [self onWaitEnd:kv];
 }
 
 - (void)addOwnViews
 {
-//    _playerView = [[UIView alloc] init];
-//    _playerView.backgroundColor = kBlackColor;
-//    [self.view addSubview:_playerView];
+
     
     _player = [[MPMoviePlayerController alloc] initWithContentURL:nil];
-//    [_player setContentURL:nil];
     [_player setMovieSourceType:MPMovieSourceTypeFile];
-    
-//    [[_player view] setFrame:self.view.bounds];
-//    [_player view].backgroundColor = [UIColor greenColor];
-    
     _player.scalingMode = MPMovieScalingModeNone;
-//    _player.controlStyle = MPMovieControlModeDefault;
+    _player.controlStyle = MPMovieControlStyleNone;
     _player.backgroundView.backgroundColor = kBlackColor;
     _player.repeatMode = MPMovieRepeatModeNone;
-    
     [self.view addSubview: _player.view];
     _playerView = _player.view;
     [_player play];
     
+    _videoImageView = [[UIImageView alloc] init];
+    _videoImageView.image = self.trainKeyValue.image;
+    [self.view addSubview:_videoImageView];
     
     _backButton = [[UIButton alloc] init];
     [_backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
@@ -139,10 +211,22 @@
     
     _timerView = [[CircularTimer alloc] init];
     _timerView.trainKV = self.trainKeyValue;
-    [self.view addSubview:_timerView];
-    [_timerView start];
+    __weak typeof(self) ws = self;
+    _timerView.waitEndEvent = ^(TrainKeyValue *kv) {
+        [ws onWaitEnd:kv];
+    };
     
-    _listView = [[TrainKeyListView alloc] initWith:self.trainList];
+    _timerView.runEndEvent = ^(TrainKeyValue *kv) {
+        [ws onRunEnd:kv];
+    };
+    
+    _timerView.sleepEndEvent = ^(TrainKeyValue *kv) {
+        [ws onSleepEnd:kv];
+    };
+    [self.view addSubview:_timerView];
+    
+    _listView = [[TrainKeyListView alloc] init];
+    [_listView select];
     [self.view addSubview:_listView];
 }
 
@@ -165,6 +249,7 @@
     {
         [_playerView sizeWith:CGSizeMake(rect.size.width, 240)];
         [_playerView alignParentTopWithMargin:20];
+        [_videoImageView sameWith:_playerView];
         
         [_backButton sizeWith:CGSizeMake(30, 30)];
         [_backButton alignParentLeftWithMargin:kDefaultMargin];
@@ -182,15 +267,14 @@
     else
     {
         [_playerView sizeWith:CGSizeMake(rect.size.width, rect.size.height - 46 - kDefaultMargin)];
-        //        [_playerView layoutParentCenter];
-        //        _playerView.center = CGPointMake(rect.size.width/2, 38 + (rect.size.height - 46 - 38)/2);
+        [_videoImageView sameWith:_playerView];
         
         [_backButton sizeWith:CGSizeMake(30, 30)];
         [_backButton alignParentLeftWithMargin:kDefaultMargin];
         [_backButton alignParentTopWithMargin:kDefaultMargin];
         
         
-        [_timerView sizeWith:CGSizeMake(60, 60)];
+        [_timerView sizeWith:CGSizeMake(100, 100)];
         [_timerView alignParentRightWithMargin:kDefaultMargin];
         [_timerView alignBottom:_playerView margin:kDefaultMargin];
         

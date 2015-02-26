@@ -6,16 +6,59 @@
 
 #import "CircularTimer.h"
 
+@interface CircularTimer ()
+
+
+@property (nonatomic, assign) SEL pauseAction;
+
+@end
+
 @implementation CircularTimer
+
+- (void)dealloc
+{
+    [self stop];
+    
+    AudioServicesRemoveSystemSoundCompletion(_startID);
+    AudioServicesDisposeSystemSoundID(_endId);
+    AudioServicesRemoveSystemSoundCompletion(_endId);
+    AudioServicesDisposeSystemSoundID(_endId);
+    
+    
+}
 
 - (void)addOwnViews
 {
     _timerText = [[UILabel alloc] init];
     _timerText.textAlignment = NSTextAlignmentCenter;
-    _timerText.font = [UIFont systemFontOfSize:16];
+    _timerText.font = [UIFont systemFontOfSize:14];
+    _timerText.lineBreakMode = NSLineBreakByWordWrapping;
+    _timerText.numberOfLines = 0;
     _timerText.adjustsFontSizeToFitWidth = YES;
     [self addSubview:_timerText];
     self.backgroundColor = kClearColor;
+    
+    // 要播放的音频文件地址
+    NSString *urlPath =  [[NSBundle mainBundle] pathForResource:@"start" ofType:@"m4a"];
+    NSURL *url = [NSURL fileURLWithPath:urlPath];
+    // 声明需要播放的音频文件ID[unsigned long]
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)(url), &_startID);
+//     AudioServicesAddSystemSoundCompletion(_startID, NULL, NULL, &playFinished, (__bridge void *)(self));
+    
+    // 要播放的音频文件地址
+    NSString *endurlPath =  [[NSBundle mainBundle] pathForResource:@"end" ofType:@"m4a"];
+    NSURL *endurl = [NSURL fileURLWithPath:endurlPath];
+    // 声明需要播放的音频文件ID[unsigned long]
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)(endurl), &_endId);
+//     AudioServicesAddSystemSoundCompletion(_endId, NULL, NULL, &playFinished, (__bridge void *)(self));
+    
+
+}
+
+void playFinished(SystemSoundID ssID, void* clientData)
+{
+    AudioServicesRemoveSystemSoundCompletion(ssID);
+    AudioServicesDisposeSystemSoundID(ssID);
 }
 
 - (void)layoutSubviews
@@ -37,9 +80,9 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     UIGraphicsPushContext(context);
     
-//    CGContextClearRect(context, rect);
+    //    CGContextClearRect(context, rect);
     
-
+    
     
     if (self.trainKV)
     {
@@ -54,7 +97,7 @@
         UIBezierPath *circle1 = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:DEGREES_TO_RADIANS(0.0f) endAngle:DEGREES_TO_RADIANS(360.0f) clockwise:YES];
         
         
-        if (_elapseTime == self.trainKV.playInterval)
+        if (_elapseTime == _duration)
         {
             [kRedColor setStroke];
             circle1.lineWidth = strokeWidth;
@@ -71,17 +114,17 @@
             float degrees = 360.0f;
             
             startAngle = 270.0f;
-            float tempDegrees = _elapseTime * 360.0 / self.trainKV.playInterval;
+            float tempDegrees = _elapseTime * 360.0 / _duration;
             degrees = (tempDegrees < 90) ? 270 + tempDegrees : tempDegrees - 90;
             
             
             UIBezierPath *circle2 = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:DEGREES_TO_RADIANS(startAngle) endAngle:DEGREES_TO_RADIANS(degrees) clockwise:YES];
-            [kRedColor setStroke];
+            [kPurpleColor setStroke];
             circle2.lineWidth = strokeWidth;
             [circle2 stroke];
             
-//            CGContextSetFillColorWithColor(context, kWhiteColor.CGColor);
-//            CGContextFillRect(context, rect);
+            //            CGContextSetFillColorWithColor(context, kWhiteColor.CGColor);
+            //            CGContextFillRect(context, rect);
         }
         
         
@@ -92,16 +135,86 @@
     
     UIGraphicsPopContext();
 }
+
 - (void)setTrainKV:(TrainKeyValue *)trainKV
 {
     if (trainKV)
     {
         _trainKV = trainKV;
-        [self stop];
-        _elapseTime = 0;
-        _timerText.text = [NSString stringWithFormat:@"%d", self.trainKV.playInterval - _elapseTime];
+        [self wait];
     }
     
+}
+
+- (void)wait
+{
+    if (self.trainKV)
+    {
+        [_timer invalidate];
+        _elapseTime = 0;
+        _duration = self.trainKV.playInterval;
+        self.pauseAction = @selector(onWait);
+        _timerText.text = [NSString stringWithFormat:@"倒计时\n%d", (int)(_duration - _elapseTime)];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:self.pauseAction userInfo:nil repeats:YES];
+    }
+
+}
+
+- (void)sleep
+{
+    if (self.trainKV)
+    {
+        [_timer invalidate];
+        _elapseTime = 0;
+        _duration = self.trainKV.playInterval;
+        self.pauseAction = @selector(onSleep);
+        _timerText.text = [NSString stringWithFormat:@"休息\n%d", (int)(_duration - _elapseTime)];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:self.pauseAction userInfo:nil repeats:YES];
+    }
+}
+
+- (void)onWait
+{
+    _elapseTime += 0.5;
+    
+    _timerText.text = [NSString stringWithFormat:@"倒计时\n%d", (int)(_duration - _elapseTime)];
+    [self setNeedsDisplay];
+    if (_elapseTime == _duration - 4.5)
+    {
+        AudioServicesPlayAlertSound(_startID);
+    }
+    
+    if (_elapseTime >= _duration)
+    {
+        if (self.waitEndEvent)
+        {
+            self.waitEndEvent(self.trainKV);
+        }
+        
+        [self start];
+    }
+}
+
+- (void)onSleep
+{
+    _elapseTime += 0.5;
+    
+    _timerText.text = [NSString stringWithFormat:@"休息\n%d", (int)(_duration - _elapseTime)];
+    [self setNeedsDisplay];
+    if (_elapseTime == _duration - 4.5)
+    {
+        AudioServicesPlayAlertSound(_startID);
+    }
+    
+    if (_elapseTime >= _duration)
+    {
+        if (self.sleepEndEvent)
+        {
+            self.sleepEndEvent(self.trainKV);
+        }
+        
+        [self start];
+    }
 }
 
 - (void)start
@@ -109,24 +222,35 @@
     if (self.trainKV)
     {
         [_timer invalidate];
-        
-        [self updateTime];
+
         _elapseTime = 0;
-        _timerText.text = [NSString stringWithFormat:@"%d", self.trainKV.playInterval - _elapseTime];
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTime) userInfo:nil repeats:YES];
+        _duration = self.trainKV.duration;
+        self.pauseAction = @selector(updateTime);
+        _timerText.text = [NSString stringWithFormat:@"运动\n%d", (int)(_duration - _elapseTime)];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:self.pauseAction userInfo:nil repeats:YES];
     }
     
 }
 
 - (void)updateTime
 {
-    _elapseTime++;
+    _elapseTime += 0.5;
     
-    _timerText.text = [NSString stringWithFormat:@"%d", self.trainKV.playInterval - _elapseTime];
+    _timerText.text = [NSString stringWithFormat:@"运动\n%d", (int)(_duration - _elapseTime)];
     [self setNeedsDisplay];
-    if (_elapseTime >= self.trainKV.playInterval)
+    if (_elapseTime == _duration - 0.5)
     {
-        [self stop];
+        AudioServicesPlayAlertSound(_endId);
+    }
+    
+    if (_elapseTime >= _duration)
+    {
+        if (self.runEndEvent)
+        {
+            self.runEndEvent(self.trainKV);
+        }
+        
+        [self sleep];
     }
 }
 
@@ -135,6 +259,27 @@
     [_timer invalidate];
     _timer = nil;
     [self setNeedsDisplay];
+}
+
+- (void)pause
+{
+    [_timer invalidate];
+    _timer = nil;
+}
+- (void)pauseOrResume
+{
+    if (_timer)
+    {
+        [self pause];
+    }
+    else
+    {
+        [self resume];
+    }
+}
+- (void)resume
+{
+    _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:self.pauseAction userInfo:nil repeats:YES];
 }
 
 @end

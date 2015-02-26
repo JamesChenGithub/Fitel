@@ -137,7 +137,7 @@
         TrainItem *item = self.trainList[i];
         NSString *fileName = [item.videoPath md5];
         
-        NSString *path = [NSString stringWithFormat:@"%@%@", dir, fileName];
+        NSString *path = [NSString stringWithFormat:@"%@%@.mp4", dir, fileName];
         if (![PathUtility isExistFile:path])
         {
             return NO;
@@ -156,15 +156,15 @@
     {
         NSString *fileName = [item.videoPath md5];
         
-        NSString *path = [NSString stringWithFormat:@"%@%@", dir, fileName];
+        NSString *path = [NSString stringWithFormat:@"%@%@.mp4", dir, fileName];
         if (![PathUtility isExistFile:path]) {
             MKNetworkOperation *op = [[MKNetworkOperation alloc] initWithURLString:item.videoPath params:nil httpMethod:@"Get"];
-            __weak typeof(item) wi = item;
+            __weak typeof(self) ws = self;
             [op onDownloadProgressChanged:^(double progress) {
                 if (progress >= 1.0)
                 {
                     // 下载完成
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kTrainItemDownloadCompleted object:wi];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kTrainItemDownloadCompleted object:ws];
                 }
             }];
             [op addDownloadStream:[NSOutputStream outputStreamToFileAtPath:path append:YES]];
@@ -178,6 +178,43 @@
     MKNetworkEngine *engine = [AppDelegate sharedAppDelegate].cacheEngine;
     [engine cancelAllOperations];
 }
+
+- (TrainItem *)playingItem
+{
+    if (_playingItem == nil && self.trainList.count)
+    {
+        _playingItem = self.trainList[0];
+    }
+    return _playingItem;
+}
+
+- (TrainItem *)nextPlayingItem
+{
+    if (_playingItem == nil && self.trainList.count)
+    {
+        return self.trainList[0];
+    }
+    else
+    {
+        NSInteger index = [self.trainList indexOfObject:_playingItem];
+        if (index + 1 >= self.trainList.count)
+        {
+            return nil;
+        }
+        else
+        {
+            return self.trainList[index + 1];
+        }
+    }
+}
+
+- (TrainItem *)getNextPlayingItem
+{
+    TrainItem *item = [self nextPlayingItem];
+    _playingItem = item;
+    return self.playingItem;
+}
+
 @end
 
 @implementation TrainItem
@@ -190,7 +227,7 @@
     
     NSString *videoPath = [NSString stringWithFormat:@"%@/Video/", docPath];
     NSString *fileName = [self.videoPath md5];
-    NSString *path = [NSString stringWithFormat:@"%@%@", videoPath, fileName];
+    NSString *path = [NSString stringWithFormat:@"%@%@.mp4", videoPath, fileName];
     return path;
 }
 

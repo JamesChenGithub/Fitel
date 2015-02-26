@@ -11,9 +11,7 @@
 
 @interface TrainKeyValueButton : UIButton
 
-@property (nonatomic, strong) TrainKeyValue *trainKeyValue;
-
-- (instancetype)initWith:(TrainKeyValue *)value;
+- (instancetype)initWith:(NSString *)title;
 
 @end
 
@@ -24,7 +22,8 @@
 
 @property (nonatomic, strong) NSMutableArray *trainList;
 
-- (instancetype)initWith:(NSMutableArray *)list;
+- (void)select;
+
 
 @end
 
@@ -35,8 +34,8 @@
 
 @interface TrainViewController : BaseViewController
 {
-    
-    UIView *_playerView;
+    UIImageView *_videoImageView;
+    __weak UIView *_playerView;
     UIButton *_backButton;
     CircularTimer *_timerView;
     TrainKeyListView *_listView;
@@ -44,7 +43,6 @@
     MPMoviePlayerController *_player;
 }
 
-@property (nonatomic, strong) NSMutableArray *trainList;
 @property (nonatomic, strong) TrainKeyValue *trainKeyValue;
 
 @end

@@ -234,16 +234,38 @@
     return cell;
 }
 
+- (void)onDownloadChanged:(NSNotification *)notify
+{
+    TrainKeyValue *item = (TrainKeyValue *)notify.object;
+    if ([item canPlay])
+    {
+        TrainViewController *vc = [[TrainViewController alloc] init];
+        vc.trainKeyValue = item;
+        [[AppDelegate sharedAppDelegate] pushViewController:vc];
+        [[HUDHelper sharedInstance] stopLoading];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kTrainItemDownloadCompleted object:nil];
+        [item startCache];
+    }
+}
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger index = [self trainItemIndexOf:indexPath];
     
     TrainKeyValue *item = [self.trainItems objectAtIndex:index];
     
-    TrainViewController *vc = [[TrainViewController alloc] init];
-    vc.trainKeyValue = item;
-    vc.trainList = self.trainItems;
-    [[AppDelegate sharedAppDelegate] pushViewController:vc];
+    if ([item canPlay])
+    {
+        TrainViewController *vc = [[TrainViewController alloc] init];
+        vc.trainKeyValue = item;
+        [[AppDelegate sharedAppDelegate] pushViewController:vc];
+    }
+    else
+    {
+        [[HUDHelper sharedInstance] loading];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDownloadChanged:) name:kTrainItemDownloadCompleted object:nil];
+        [item startCache];
+    }
 }
 
 - (NSUInteger)supportedInterfaceOrientations
