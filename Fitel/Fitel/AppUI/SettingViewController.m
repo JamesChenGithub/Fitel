@@ -85,7 +85,7 @@
             NSDictionary *releaseInfo = [infoArray objectAtIndex:0];
             NSString *lastVersion = [releaseInfo objectForKey:@"version"];
             
-            if (![lastVersion isEqualToString:currentVersion])
+            if (![lastVersion isEqualToString:currentVersion] && [NSString isEmpty:lastVersion])
             {
                 self.trackURL = [releaseInfo objectForKey:@"trackViewUrl"];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kUpdate_Message_Str delegate:self cancelButtonTitle:kCancel_Str otherButtonTitles:kOK_Str, nil];
