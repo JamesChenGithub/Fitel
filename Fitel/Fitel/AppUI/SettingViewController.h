@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface SettingViewController : UITableViewController
+@interface SettingViewController : UITableViewController<UIAlertViewDelegate>
 
 @end

@@ -176,9 +176,9 @@
     MKNetworkEngine *engine = [AppDelegate sharedAppDelegate].cacheEngine;
     
     NSString *dir = [self videoDir];
-    for (NSInteger i = self.trainList.count - 1; i>=0; i--)
+    for (TrainItem *item in self.trainList)
     {
-        TrainItem *item = self.trainList[i];
+        
         NSString *fileName = [item.videoPath md5];
         
         NSString *path = [NSString stringWithFormat:@"%@%@.mp4", dir, fileName];

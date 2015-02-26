@@ -83,6 +83,15 @@
     MenuItem *item = [self.menuItems objectAtIndex:indexPath.section];
     cell.textLabel.text = item.title;
     
+//    if (indexPath.section == self.menuItems.count - 1)
+//    {
+//        cell
+//    }
+//    else
+//    {
+//        cell.detailTextLabel.text = nil;
+//    }
+    
     return cell;
 }
 
