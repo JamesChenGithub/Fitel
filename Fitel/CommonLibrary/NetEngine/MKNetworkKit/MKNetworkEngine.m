@@ -79,7 +79,7 @@ static NSOperationQueue *_sharedNetworkQueue;
     dispatch_once(&oncePredicate, ^{
       _sharedNetworkQueue = [[NSOperationQueue alloc] init];
       [_sharedNetworkQueue addObserver:[self self] forKeyPath:@"operationCount" options:0 context:NULL];
-      [_sharedNetworkQueue setMaxConcurrentOperationCount:6];
+      [_sharedNetworkQueue setMaxConcurrentOperationCount:1];
       
     });
   }
@@ -208,7 +208,7 @@ static NSOperationQueue *_sharedNetworkQueue;
   if([self.reachability currentReachabilityStatus] == ReachableViaWiFi)
   {
     DLog(@"Server [%@] is reachable via Wifi", self.hostName);
-    [_sharedNetworkQueue setMaxConcurrentOperationCount:6];
+    [_sharedNetworkQueue setMaxConcurrentOperationCount:1];
     
     [self checkAndRestoreFrozenOperations];
   }
@@ -220,7 +220,7 @@ static NSOperationQueue *_sharedNetworkQueue;
       [_sharedNetworkQueue setMaxConcurrentOperationCount:0];
     } else {
       DLog(@"Server [%@] is reachable only via cellular data", self.hostName);
-      [_sharedNetworkQueue setMaxConcurrentOperationCount:2];
+      [_sharedNetworkQueue setMaxConcurrentOperationCount:1];
       [self checkAndRestoreFrozenOperations];
     }
   }

@@ -40,14 +40,23 @@
 // =============================================
 // Tabbar
 #define kTabBar_Main_Title_Str                  Localized(@"kTabBar_Main_Title_Str")
+#define kMain_Title_Str                         Localized(@"kMain_Title_Str")
 #define kTabBar_Calculate_Title_Str             Localized(@"kTabBar_Calculate_Title_Str")
 #define kTabBar_Setting_Title_Str               Localized(@"kTabBar_Setting_Title_Str")
 
+#define kNetwork_Error_Str                      Localized(@"kNetwork_Error_Str")
 
-// 首页
-#define kMain_Title_Str                         Localized(@"kMain_Title_Str")
-#define kMain_Book_Str                          Localized(@"kMain_Book_Str")
-#define kMain_Pack_Str                          Localized(@"kMain_Pack_Str")
+#define kTrain_Type1_Str                        Localized(@"kTrain_Type1_Str")
+#define kTrain_Type2_Str                        Localized(@"kTrain_Type2_Str")
+#define kTrain_Type3_Str                        Localized(@"kTrain_Type3_Str")
+#define kTrain_Type4_Str                        Localized(@"kTrain_Type4_Str")
+#define kTrain_Type5_Str                        Localized(@"kTrain_Type5_Str")
+#define kTrain_Type6_Str                        Localized(@"kTrain_Type6_Str")
+#define kTrain_Type7_Str                        Localized(@"kTrain_Type7_Str")
+#define kTrain_Type8_Str                        Localized(@"kTrain_Type8_Str")
+#define kTrain_Type9_Str                        Localized(@"kTrain_Type9_Str")
+#define kTrain_Type10_Str                       Localized(@"kTrain_Type10_Str")
+
 
 
 // Setting
@@ -82,5 +91,29 @@
 
 #define kCalculateResult_ResultTitle_Str        Localized(@"kCalculateResult_ResultTitle_Str")
 #define kCalculateResult_CloseTitle_Str         Localized(@"kCalculateResult_CloseTitle_Str")
+
+#define kAboutUs_Content_Str                    Localized(@"kAboutUs_Content_Str")
+
+#define kTrain_Wait_Format_Str                  Localized(@"kTrain_Wait_Format_Str")
+#define kTrain_Run_Format_Str                   Localized(@"kTrain_Run_Format_Str")
+#define kTrain_Sleep_Format_Str                 Localized(@"kTrain_Sleep_Format_Str")
+
+
+
+#define kCalculateResult_Age_Format_Str         Localized(@"kCalculateResult_Age_Format_Str")
+#define kCalculateResult_Height_Format_Str      Localized(@"kCalculateResult_Height_Format_Str")
+#define kCalculateResult_Weight_Format_Str      Localized(@"kCalculateResult_Weight_Format_Str")
+#define kCalculateResult_BMI_Format_Str         Localized(@"kCalculateResult_BMI_Format_Str")
+#define kCalculateResult_BasicDaiXie_Format_Str Localized(@"kCalculateResult_BasicDaiXie_Format_Str")
+#define kCalculateResult_NeedDay_Format_Str     Localized(@"kCalculateResult_NeedDay_Format_Str")
+#define kCalculateResult_MHR_Format_Str         Localized(@"kCalculateResult_MHR_Format_Str")
+#define kCalculateResult_Zone1_Format_Str       Localized(@"kCalculateResult_Zone1_Format_Str")
+#define kCalculateResult_Zone2_Format_Str       Localized(@"kCalculateResult_Zone2_Format_Str")
+#define kCalculateResult_Zone3_Format_Str       Localized(@"kCalculateResult_Zone3_Format_Str")
+#define kCalculateResult_Zone4_Format_Str       Localized(@"kCalculateResult_Zone4_Format_Str")
+#define kCalculateResult_Zone5_Format_Str       Localized(@"kCalculateResult_Zone5_Format_Str")
+
+
+
 
 #endif

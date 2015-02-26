@@ -154,7 +154,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
         _elapseTime = 0;
         _duration = self.trainKV.playInterval;
         self.pauseAction = @selector(onWait);
-        _timerText.text = [NSString stringWithFormat:@"倒计时\n%d", (int)(_duration - _elapseTime)];
+        _timerText.text = [NSString stringWithFormat:kTrain_Wait_Format_Str, (int)(_duration - _elapseTime)];
         _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:self.pauseAction userInfo:nil repeats:YES];
     }
 
@@ -168,7 +168,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
         _elapseTime = 0;
         _duration = self.trainKV.playInterval;
         self.pauseAction = @selector(onSleep);
-        _timerText.text = [NSString stringWithFormat:@"休息\n%d", (int)(_duration - _elapseTime)];
+        _timerText.text = [NSString stringWithFormat:kTrain_Sleep_Format_Str, (int)(_duration - _elapseTime)];
         _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:self.pauseAction userInfo:nil repeats:YES];
     }
 }
@@ -177,7 +177,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
 {
     _elapseTime += 0.5;
     
-    _timerText.text = [NSString stringWithFormat:@"倒计时\n%d", (int)(_duration - _elapseTime)];
+    _timerText.text = [NSString stringWithFormat:kTrain_Wait_Format_Str, (int)(_duration - _elapseTime)];
     [self setNeedsDisplay];
     if (_elapseTime == _duration - 4.5)
     {
@@ -199,7 +199,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
 {
     _elapseTime += 0.5;
     
-    _timerText.text = [NSString stringWithFormat:@"休息\n%d", (int)(_duration - _elapseTime)];
+    _timerText.text = [NSString stringWithFormat:kTrain_Sleep_Format_Str, (int)(_duration - _elapseTime)];
     [self setNeedsDisplay];
     if (_elapseTime == _duration - 4.5)
     {
@@ -226,7 +226,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
         _elapseTime = 0;
         _duration = self.trainKV.duration;
         self.pauseAction = @selector(updateTime);
-        _timerText.text = [NSString stringWithFormat:@"运动\n%d", (int)(_duration - _elapseTime)];
+        _timerText.text = [NSString stringWithFormat:kTrain_Run_Format_Str, (int)(_duration - _elapseTime)];
         _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:self.pauseAction userInfo:nil repeats:YES];
     }
     
@@ -236,7 +236,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
 {
     _elapseTime += 0.5;
     
-    _timerText.text = [NSString stringWithFormat:@"运动\n%d", (int)(_duration - _elapseTime)];
+    _timerText.text = [NSString stringWithFormat:kTrain_Run_Format_Str, (int)(_duration - _elapseTime)];
     [self setNeedsDisplay];
     if (_elapseTime == _duration - 0.5)
     {

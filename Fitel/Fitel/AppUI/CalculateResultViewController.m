@@ -87,15 +87,15 @@
 - (void)updateInfos
 {
     // Age
-    CalculateResultCell *age = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:@"%d\nYour Age\n你的年龄", (int)self.age]];
+    CalculateResultCell *age = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_Age_Format_Str, (int)self.age]];
     [_scrollview addSubview:age];
     
     // Height
-    CalculateResultCell *height = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:@"%d\nYour Height\n你的身高", (int)self.height]];
+    CalculateResultCell *height = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_Height_Format_Str, (int)self.height]];
     [_scrollview addSubview:height];
     
     // weight
-    CalculateResultCell *weight = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:@"%d\nYour Weight\n你的身高", (int)self.weight]];
+    CalculateResultCell *weight = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_Weight_Format_Str, (int)self.weight]];
     [_scrollview addSubview:weight];
     
     
@@ -125,7 +125,7 @@
     
     
     // weight
-    CalculateResultCell *bmi = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:@"%0.1f％\nYour BMI\n你的身高", self.weight*10000/(self.height*self.height)]];
+    CalculateResultCell *bmi = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_BMI_Format_Str, self.weight*10000/(self.height*self.height)]];
     [_scrollview addSubview:bmi];
     
 //    bmiTextView.setText(decimalFormat.format((self.weight*10000)/(self.height*self.height))+"%");
@@ -140,11 +140,11 @@
 //    Log.e("========bmr======", "====male:"+male+"female"+female);
     
     // 基础代谢率
-    CalculateResultCell *needDay = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:@"%0.1f大卡/日\n\n基础代谢率", self.isMale ? self.type * male : self.type * female]];
+    CalculateResultCell *needDay = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_BasicDaiXie_Format_Str, self.isMale ? self.type * male : self.type * female]];
     [_scrollview addSubview:needDay];
 
 
-    CalculateResultCell *basicDaiXie = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:@"%0.1f大卡/日\n\n每日所需热量", self.isMale ? male : female]];
+    CalculateResultCell *basicDaiXie = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_NeedDay_Format_Str, self.isMale ? male : female]];
     [_scrollview addSubview:basicDaiXie];
 //    basicDaiXieTextView.setText(self.isMale?decimalFormat.format(male)+"大卡/日":decimalFormat.format(female)+"大卡/日");
     
@@ -153,23 +153,23 @@
     int mhr = 220 - self.age;
     
 //    hightbeat.setText(mhr+"");
-    CalculateResultCell *mhrview = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:@"%d\nYour MHR\n最高心跳率", mhr]];
+    CalculateResultCell *mhrview = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_MHR_Format_Str, mhr]];
     [_scrollview addSubview:mhrview];
     
     
-    CalculateResultCell *zone1 = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:@"%d-%d\n\n暖身恢复区", (int)(mhr*0.5), (int)(mhr*0.6)]];
+    CalculateResultCell *zone1 = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_Zone1_Format_Str, (int)(mhr*0.5), (int)(mhr*0.6)]];
     [_scrollview addSubview:zone1];
     
-    CalculateResultCell *zone2 = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:@"%d-%d\n\n低强度有氧区", (int)(mhr*0.6), (int)(mhr*0.7)]];
+    CalculateResultCell *zone2 = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_Zone2_Format_Str, (int)(mhr*0.6), (int)(mhr*0.7)]];
     [_scrollview addSubview:zone2];
     
-    CalculateResultCell *zone3 = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:@"%d-%d\n\n高强度有氧区", (int)(mhr*0.7), (int)(mhr*0.8)]];
+    CalculateResultCell *zone3 = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_Zone3_Format_Str, (int)(mhr*0.7), (int)(mhr*0.8)]];
     [_scrollview addSubview:zone3];
     
-    CalculateResultCell *zone4 = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:@"%d-%d\n\n无氧区", (int)(mhr*0.8), (int)(mhr*0.9)]];
+    CalculateResultCell *zone4 = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_Zone4_Format_Str, (int)(mhr*0.8), (int)(mhr*0.9)]];
     [_scrollview addSubview:zone4];
     
-    CalculateResultCell *zone5 = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:@"%d-%d\n\n极限区", (int)(mhr*0.9), (int)(mhr*1)]];
+    CalculateResultCell *zone5 = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_Zone5_Format_Str, (int)(mhr*0.9), (int)(mhr*1)]];
     [_scrollview addSubview:zone5];
     
     

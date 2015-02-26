@@ -37,11 +37,20 @@
 "kTabBar_Main_Title_Str" = "瘦身训练";
 "kTabBar_Calculate_Title_Str" = "瘦身生理计算";
 "kTabBar_Setting_Title_Str" = "设置";
+"kMain_Title_Str" = "视频列表";
+"kNetwork_Error_Str" = "网络错误";
 
-// 首页
-//"kMain_Title_Str" = "爱午餐";
-//"kMain_Book_Str" = "订座";
-//"kMain_Pack_Str" = "打包";
+"kTrain_Type1_Str" = "暖身";
+"kTrain_Type2_Str" = "深蹲教学";
+"kTrain_Type3_Str" = "Tabata初级";
+"kTrain_Type4_Str" = "Tabata进阶";
+"kTrain_Type5_Str" = "Tabata腹肌";
+"kTrain_Type6_Str" = "健臂";
+"kTrain_Type7_Str" = "仰卧起坐";
+"kTrain_Type8_Str" = "伏地挺身";
+"kTrain_Type9_Str" = "徒手深蹲";
+"kTrain_Type10_Str" = "棒式";
+
 
 // 设置
 "kSetting_Title_Str" = "瘦身训练";
@@ -76,8 +85,22 @@
 "kCalculateResult_CloseTitle_Str" = "关闭Close";
 
 
+"kAboutUs_Content_Str" = "      哈囉各位休粉大家好，歡迎來到這個健康瘦身的園地，一休開這個社團是提供大家可以互相交流分享減重經驗，也可以一起鼓勵督促進步，你可以設你的目標或者跟我們分享你的心得，這裡不建議私下開設line群組，失去大家一起的目標，所以看到此種類型文章一律刪文。\n      也嚴禁販售任何產品，甚至只要有看到購買連結或私下金錢交易等訊息也都會刪文，一休不鼓勵也不建議各位有任何金錢交易的行為，以避免有可能引發的金錢詐騙等相關行為。\n      最後請新進來的休粉都可以自我介紹，你可以簡單分享自己的減重心得，或者告訴我們你的減重目標，或者你減重中的欵問，讓大家在回答問題之前或互相交流時能夠更認識彼此喔～\n      80%的問題應該在我寫的部落格都可以找到答案 http://leeyihugh.pixnet.net/blog 這裡也有粉絲團新手減肥懶人包 http://goo.gl/POIhgL \n      另外問問題之前也請讓大家知道你的身高，體重，飲食跟運動習慣，才更能夠知道可以給你什麼建議喔～ ";
 
 
+"kTrain_Wait_Format_Str" = "倒计时\n%d";
+"kTrain_Run_Format_Str" = "运动\n%d";
+"kTrain_Sleep_Format_Str" = "休息\n%d";
 
-
-
+"kCalculateResult_Age_Format_Str" = "%d\nYour Age\n你的年龄";
+"kCalculateResult_Height_Format_Str" = "%d\nYour Height\n你的身高";
+"kCalculateResult_Weight_Format_Str" = "%d\nYour Weight\n你的体重";
+"kCalculateResult_BMI_Format_Str" = "%0.1f％\nYour BMI\n你的BMI值";
+"kCalculateResult_BasicDaiXie_Format_Str" = "%0.1f大卡/日\n\n基础代谢率";
+"kCalculateResult_NeedDay_Format_Str" = "%0.1f大卡/日\n\n每日所需热量";
+"kCalculateResult_MHR_Format_Str" = "%d\nYour MHR\n最高心跳率";
+"kCalculateResult_Zone1_Format_Str" = "%d-%d\n\n暖身恢复区";
+"kCalculateResult_Zone2_Format_Str" = "%d-%d\n\n低强度有氧区";
+"kCalculateResult_Zone3_Format_Str" = "%d-%d\n\n高强度有氧区";
+"kCalculateResult_Zone4_Format_Str" = "%d-%d\n\n无氧区";
+"kCalculateResult_Zone5_Format_Str" = "%d-%d\n\n极限区";

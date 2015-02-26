@@ -27,46 +27,56 @@
 
 - (void)setType:(NSInteger)type
 {
+#define kTrain_Type1_Str                        Localized(@"kTrain_Type1_Str")
+#define kTrain_Type2_Str                        Localized(@"kTrain_Type2_Str")
+#define kTrain_Type3_Str                        Localized(@"kTrain_Type3_Str")
+#define kTrain_Type4_Str                        Localized(@"kTrain_Type4_Str")
+#define kTrain_Type5_Str                        Localized(@"kTrain_Type5_Str")
+#define kTrain_Type6_Str                        Localized(@"kTrain_Type6_Str")
+#define kTrain_Type7_Str                        Localized(@"kTrain_Type7_Str")
+#define kTrain_Type8_Str                        Localized(@"kTrain_Type8_Str")
+#define kTrain_Type9_Str                        Localized(@"kTrain_Type9_Str")
+#define kTrain_Type10_Str                       Localized(@"kTrain_Type10_Str")
     _type = type;
     switch (_type)
     {
         case 1:
-            self.key = @"暖身";
+            self.key = kTrain_Type1_Str;
             break;
             
         case 2:
-            self.key = @"深蹲教學";
+            self.key = kTrain_Type2_Str;
             break;
             
         case 3:
-            self.key = @"Tabata初级";
+            self.key = kTrain_Type3_Str;
             break;
             
         case 4:
-            self.key = @"Tabata进阶";
+            self.key = kTrain_Type4_Str;
             break;
             
         case 5:
-            self.key = @"Tabata腹肌";
+            self.key = kTrain_Type5_Str;
             break;
             
         case 6:
-            self.key = @"健臂";
+            self.key = kTrain_Type6_Str;
             break;
             
         case 7:
-            self.key = @"仰卧起坐";
+            self.key = kTrain_Type7_Str;
             break;
             
         case 8:
-            self.key = @"伏地挺身";
+            self.key = kTrain_Type8_Str;
             break;
         case 9:
-            self.key = @"徒手深蹲";
+            self.key = kTrain_Type9_Str;
             break;
             
         case 10:
-            self.key = @"棒式";
+            self.key = kTrain_Type10_Str;
             break;
             
         default:

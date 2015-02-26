@@ -143,7 +143,7 @@
          
          if (error != nil)
          {
-             [[HUDHelper sharedInstance] tipMessage:@"网络错误"];
+             [[HUDHelper sharedInstance] tipMessage:kNetwork_Error_Str];
          }
          else
          {
