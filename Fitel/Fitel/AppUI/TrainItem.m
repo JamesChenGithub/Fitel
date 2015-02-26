@@ -51,7 +51,7 @@
             break;
             
         case 6:
-            self.key = @"手肘碰膝";
+            self.key = @"健臂";
             break;
             
         case 7:
