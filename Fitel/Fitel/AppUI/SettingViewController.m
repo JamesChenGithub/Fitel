@@ -34,13 +34,15 @@
     [self.menuItems addObject:item];
     
     item = [[MenuItem alloc] initWithTitle:kSettingCell_OrderZone_Str icon:nil action:^(id<MenuAbleItem> menu) {
-//        http://leeyihugh.pixnet.net/blog/post/261135124
+        //        http://leeyihugh.pixnet.net/blog/post/261135124
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://leeyihugh.pixnet.net/blog/post/261135124"]];
     }];
     [self.menuItems addObject:item];
     
+    
+    __weak typeof(self) ws = self;
     item = [[MenuItem alloc] initWithTitle:kSettingCell_CheckUpdate_Str icon:nil action:^(id<MenuAbleItem> menu) {
-        
+        [ws checkVersion];
     }];
     [self.menuItems addObject:item];
     
@@ -48,6 +50,65 @@
         
     }];
     [self.menuItems addObject:item];
+}
+
+- (void)checkVersion
+{
+    
+    NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *URL = @"http://itunes.apple.com/lookup?id=9B36D773WCID";
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:URL]];
+    [request setHTTPMethod:@"POST"];
+    
+    
+    //    NSHTTPURLResponse *urlResponse = nil;
+    //    NSError *error = nil;
+    
+    [[HUDHelper sharedInstance] loading];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *urlResponse, NSData *recervedData, NSError *connectionError) {
+        
+        [[HUDHelper sharedInstance] stopLoading];
+
+        if (connectionError)
+        {
+            [[HUDHelper sharedInstance] tipMessage:kNetwork_Error_Str];
+            return ;
+        }
+        
+        NSString *results = [[NSString alloc] initWithBytes:[recervedData bytes] length:[recervedData length] encoding:NSUTF8StringEncoding];
+        NSDictionary *dic = [results objectFromJSONString];
+        NSArray *infoArray = [dic objectForKey:@"results"];
+        if ([infoArray count])
+        {
+            NSDictionary *releaseInfo = [infoArray objectAtIndex:0];
+            NSString *lastVersion = [releaseInfo objectForKey:@"version"];
+            
+            if (![lastVersion isEqualToString:currentVersion])
+            {
+                self.trackURL = [releaseInfo objectForKey:@"trackViewUrl"];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:kUpdate_Message_Str delegate:self cancelButtonTitle:kCancel_Str otherButtonTitles:kOK_Str, nil];
+                [alert show];
+            }
+            else
+            {
+                [[HUDHelper sharedInstance] tipMessage:kUpdate_LatestVersion_Str];
+            }
+        }
+        else
+        {
+            [[HUDHelper sharedInstance] tipMessage:kUpdate_LatestVersion_Str];
+        }
+    }];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.trackURL]];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -88,7 +149,7 @@
         NSString *doc = [PathUtility getDocumentPath];
         NSString *video = [NSString stringWithFormat:@"%@/Video/", doc];
         unsigned long long int size = [PathUtility folderSize:video];
-    
+        
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2fM", size / (1024*1024.0)];
     }
     else

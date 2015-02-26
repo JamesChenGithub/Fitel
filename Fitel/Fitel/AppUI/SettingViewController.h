@@ -10,4 +10,6 @@
 
 @interface SettingViewController : UITableViewController<UIAlertViewDelegate>
 
+@property (nonatomic, copy) NSString *trackURL;
+
 @end

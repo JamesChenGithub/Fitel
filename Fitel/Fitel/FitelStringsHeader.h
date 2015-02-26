@@ -113,6 +113,9 @@
 #define kCalculateResult_Zone4_Format_Str       Localized(@"kCalculateResult_Zone4_Format_Str")
 #define kCalculateResult_Zone5_Format_Str       Localized(@"kCalculateResult_Zone5_Format_Str")
 
+#define kUpdate_Message_Str       Localized(@"kUpdate_Message_Str")
+#define kUpdate_LatestVersion_Str       Localized(@"kUpdate_LatestVersion_Str")
+
 
 
 
