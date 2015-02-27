@@ -139,13 +139,15 @@
     
 //    Log.e("========bmr======", "====male:"+male+"female"+female);
     
+    CalculateResultCell *basicDaiXie = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_BasicDaiXie_Format_Str, self.isMale ? male : female]];
+    [_scrollview addSubview:basicDaiXie];
+    
     // 基础代谢率
-    CalculateResultCell *needDay = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_BasicDaiXie_Format_Str, self.isMale ? self.type * male : self.type * female]];
+    CalculateResultCell *needDay = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_NeedDay_Format_Str, self.isMale ? self.type * male : self.type * female]];
     [_scrollview addSubview:needDay];
 
 
-    CalculateResultCell *basicDaiXie = [[CalculateResultCell alloc] initWith:[NSString stringWithFormat:kCalculateResult_NeedDay_Format_Str, self.isMale ? male : female]];
-    [_scrollview addSubview:basicDaiXie];
+    
 //    basicDaiXieTextView.setText(self.isMale?decimalFormat.format(male)+"大卡/日":decimalFormat.format(female)+"大卡/日");
     
     //		costDayTextView.setText(getCost(sex,Integer.valueOf(age),Float.valueOf(weight).floatValue()));

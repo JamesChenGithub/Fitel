@@ -182,10 +182,12 @@
         NSString *fileName = [item.videoPath md5];
         
         NSString *path = [NSString stringWithFormat:@"%@%@.mp4", dir, fileName];
+
         if (![PathUtility isExistFile:path])
         {
             MKNetworkOperation *op = [[TrainCacheOperation alloc] initWithURLString:item.videoPath params:nil httpMethod:@"Get"];
             __weak typeof(self) ws = self;
+
             [op onDownloadProgressChanged:^(double progress) {
                 
                 [[NSNotificationCenter defaultCenter] postNotificationName:kTrainItemDownloadProgress object:ws userInfo:@{@"DownloadProgress":@(progress)}];

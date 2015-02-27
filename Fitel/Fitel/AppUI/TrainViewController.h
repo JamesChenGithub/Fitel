@@ -24,18 +24,15 @@
 
 - (void)select;
 
-
 @end
 
-@interface TrainTimerView : UIView
-
-@end
 
 
 @interface TrainViewController : BaseViewController
-{
-    UIImageView *_videoImageView;
+{    
     __weak UIView *_playerView;
+    UIImageView *_videoIamgeView;
+
     UIButton *_backButton;
     CircularTimer *_timerView;
     TrainKeyListView *_listView;

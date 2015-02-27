@@ -32,8 +32,10 @@
     _timerText = [[UILabel alloc] init];
     _timerText.textAlignment = NSTextAlignmentCenter;
     _timerText.font = [UIFont systemFontOfSize:14];
+
     _timerText.lineBreakMode = NSLineBreakByWordWrapping;
     _timerText.numberOfLines = 0;
+
     _timerText.adjustsFontSizeToFitWidth = YES;
     [self addSubview:_timerText];
     self.backgroundColor = kClearColor;
@@ -153,7 +155,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
         [_timer invalidate];
         _elapseTime = 0;
         _duration = self.trainKV.playInterval;
-        self.progressColor = kBlueColor;
+        self.progressColor = kDarkGrayColor;
         self.pauseAction = @selector(onWait);
         _timerText.text = [NSString stringWithFormat:kTrain_Wait_Format_Str, (int)(_duration - _elapseTime)];
         _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:self.pauseAction userInfo:nil repeats:YES];
@@ -168,7 +170,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
         [_timer invalidate];
         _elapseTime = 0;
         _duration = self.trainKV.playInterval;
-        self.progressColor = kDarkGrayColor;
+        self.progressColor = kGreenColor;
         self.pauseAction = @selector(onSleep);
         _timerText.text = [NSString stringWithFormat:kTrain_Sleep_Format_Str, (int)(_duration - _elapseTime)];
         _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:self.pauseAction userInfo:nil repeats:YES];
@@ -227,7 +229,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
 
         _elapseTime = 0;
         _duration = self.trainKV.duration;
-        self.progressColor = kGreenColor;
+        self.progressColor = kBlueColor;
         self.pauseAction = @selector(updateTime);
         _timerText.text = [NSString stringWithFormat:kTrain_Run_Format_Str, (int)(_duration - _elapseTime)];
         _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:self.pauseAction userInfo:nil repeats:YES];

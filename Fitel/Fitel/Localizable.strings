@@ -105,5 +105,5 @@
 "kCalculateResult_Zone4_Format_Str" = "%d-%d\n\n無氧區";
 "kCalculateResult_Zone5_Format_Str" = "%d-%d\n\n極限區";
 
-"kUpdate_Message_Str" = "有新的版本更新，是否前往更新？";
-"kUpdate_LatestVersion_Str" = "当前版本已是最新！";
+"kUpdate_Message_Str" = "有新的版本更新,是否前往更新?";
+"kUpdate_LatestVersion_Str" = "當前版本已是最新";

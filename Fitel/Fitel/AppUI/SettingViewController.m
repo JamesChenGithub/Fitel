@@ -56,7 +56,7 @@
 {
     
     NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    NSString *URL = @"http://itunes.apple.com/lookup?id=9B36D773WCID";
+    NSString *URL = @"http://itunes.apple.com/lookup?id=971774697";
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:URL]];
     [request setHTTPMethod:@"POST"];

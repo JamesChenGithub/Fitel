@@ -51,9 +51,11 @@
         [self addSubview:_scrollView];
         
         self.trainList = [NSMutableArray array];
+        
         for (NSInteger i = 1; i <= 10; i++)
         {
             TrainKeyValueButton *btn = [[TrainKeyValueButton alloc] initWith:[NSString stringWithFormat:@"%d", (int)i]];
+
             [_scrollView addSubview:btn];
             [self.trainList addObject:btn];
         }
@@ -66,6 +68,7 @@
 {
     for (TrainKeyValueButton *btn in self.trainList)
     {
+
         if (!btn.selected)
         {
             btn.selected = YES;
@@ -81,6 +84,7 @@
 }
 
 #define kHorMargin 5
+
 - (void)relayoutFrameOfSubViews
 {
     CGRect rect = self.bounds;
@@ -153,11 +157,11 @@
 
 - (void)onWaitEnd:(TrainKeyValue *)kv
 {
-    _videoImageView.hidden = YES;
+    _videoIamgeView.hidden = YES;
     TrainItem *item = [kv nextPlayingItem];
     if (item)
     {
-        [_videoImageView sd_setImageWithURL:[NSURL URLWithString:item.imagePath] placeholderImage:_videoImageView.image];
+        [_videoIamgeView sd_setImageWithURL:[NSURL URLWithString:item.imagePath] placeholderImage:_videoIamgeView.image];
     }
     
 
@@ -170,7 +174,7 @@
 
 - (void)onRunEnd:(TrainKeyValue *)kv
 {
-    _videoImageView.hidden = NO;
+    _videoIamgeView.hidden = NO;
     [_player stop];
 }
 
@@ -199,9 +203,9 @@
     _playerView = _player.view;
     [_player play];
     
-    _videoImageView = [[UIImageView alloc] init];
-    _videoImageView.image = self.trainKeyValue.image;
-    [self.view addSubview:_videoImageView];
+    _videoIamgeView = [[UIImageView alloc] init];
+    _videoIamgeView.image = self.trainKeyValue.image;
+    [self.view addSubview:_videoIamgeView];
     
     _backButton = [[UIButton alloc] init];
     [_backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
@@ -250,7 +254,7 @@
     {
         [_playerView sizeWith:CGSizeMake(rect.size.width, 240)];
         [_playerView alignParentTopWithMargin:20];
-        [_videoImageView sameWith:_playerView];
+        [_videoIamgeView sameWith:_playerView];
         
         [_backButton sizeWith:CGSizeMake(30, 30)];
         [_backButton alignParentLeftWithMargin:kDefaultMargin];
@@ -268,7 +272,7 @@
     else
     {
         [_playerView sizeWith:CGSizeMake(rect.size.width, rect.size.height - 46 - kDefaultMargin)];
-        [_videoImageView sameWith:_playerView];
+        [_videoIamgeView sameWith:_playerView];
         
         [_backButton sizeWith:CGSizeMake(30, 30)];
         [_backButton alignParentLeftWithMargin:kDefaultMargin];
