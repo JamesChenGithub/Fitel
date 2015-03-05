@@ -235,6 +235,24 @@
     return succ;
 }
 
++ (BOOL)createDirectoryAtTemporary:(NSString *)dirName
+{
+    if (nil == dirName)
+    {
+        return NO;
+    }
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *tempPath = [PathUtility getTemporaryPath];
+    NSString *dirPath = [NSString stringWithFormat:@"%@/%@", tempPath, dirName];
+    if ([fileManager fileExistsAtPath:dirPath])
+    {
+        return YES;
+    }
+    
+    BOOL succ = [fileManager createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:nil error:nil];
+    return succ;
+}
+
 
 
 // 获取文档目录路径

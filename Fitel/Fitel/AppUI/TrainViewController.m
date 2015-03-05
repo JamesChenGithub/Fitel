@@ -55,7 +55,7 @@
         for (NSInteger i = 1; i <= 10; i++)
         {
             TrainKeyValueButton *btn = [[TrainKeyValueButton alloc] initWith:[NSString stringWithFormat:@"%d", (int)i]];
-
+            
             [_scrollView addSubview:btn];
             [self.trainList addObject:btn];
         }
@@ -68,13 +68,27 @@
 {
     for (TrainKeyValueButton *btn in self.trainList)
     {
-
         if (!btn.selected)
         {
             btn.selected = YES;
             break;
         }
     }
+}
+
+- (BOOL)isTrainOver
+{
+    BOOL istrainOver = YES;
+    for (TrainKeyValueButton *btn in self.trainList)
+    {
+        istrainOver = istrainOver && btn.selected;
+        if (!istrainOver)
+        {
+            return istrainOver;
+        }
+    }
+    
+    return istrainOver;
 }
 
 - (void)layoutSubviews
@@ -164,7 +178,7 @@
         [_videoIamgeView sd_setImageWithURL:[NSURL URLWithString:item.imagePath] placeholderImage:_videoIamgeView.image];
     }
     
-
+    
     NSString *path = [kv.playingItem cachePath];
     NSURL *ur = [NSURL fileURLWithPath:path];
     [_player setContentURL:ur];
@@ -184,14 +198,23 @@
     if (!item)
     {
         [_listView select];
+        
+        if ([_listView isTrainOver])
+        {
+            [[AppDelegate sharedAppDelegate] popViewController];
+            return;
+        }
     }
     [kv getNextPlayingItem];
     [self onWaitEnd:kv];
+    
+    
+    
 }
 
 - (void)addOwnViews
 {
-
+    
     
     _player = [[MPMoviePlayerController alloc] initWithContentURL:nil];
     [_player setMovieSourceType:MPMovieSourceTypeFile];

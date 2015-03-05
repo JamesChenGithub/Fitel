@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSMutableArray *trainList;
 
 - (void)select;
+- (BOOL)isTrainOver;
 
 @end
 

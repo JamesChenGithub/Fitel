@@ -72,6 +72,11 @@ static NSOperationQueue *_sharedNetworkQueue;
 #pragma mark -
 #pragma mark Initialization
 
+- (NSOperationQueue *)sharedNetworkQueue
+{
+    return _sharedNetworkQueue;
+}
+
 +(void) initialize {
   
   if(!_sharedNetworkQueue) {

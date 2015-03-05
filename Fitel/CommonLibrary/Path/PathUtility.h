@@ -51,6 +51,8 @@
 // 在cache目录下创建一个目录
 + (BOOL)createDirectoryAtCache:(NSString *)dirName;
 
++ (BOOL)createDirectoryAtTemporary:(NSString *)dirName;
+
 // 获取文档目录路径
 + (NSString *)getDocumentPath;
 // 获取cache目录路径

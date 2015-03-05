@@ -40,6 +40,9 @@
  *  MKNetworkEngine also allows you to provide custom header fields that gets appended automatically to every request
  */
 @interface MKNetworkEngine : NSObject
+
+- (NSOperationQueue *)sharedNetworkQueue;
+
 /*!
  *  @abstract Initializes your network engine with a hostname
  *  

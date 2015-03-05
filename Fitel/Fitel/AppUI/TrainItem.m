@@ -14,11 +14,11 @@
 {
     [super cancel];
     
-    NSString *docPath = [PathUtility getDocumentPath];
+    NSString *cachePath = [PathUtility getCachePath];
     
-    [PathUtility createDirectoryAtDocument:@"Video"];
+    [PathUtility createDirectoryAtCache:@"Video"];
     
-    NSString *videoPath = [NSString stringWithFormat:@"%@/Video/", docPath];
+    NSString *videoPath = [NSString stringWithFormat:@"%@/Video/", cachePath];
     NSString *fileName = [self.url md5];
     NSString *path = [NSString stringWithFormat:@"%@%@.mp4", videoPath, fileName];
     [PathUtility deleteFileAtPath:path];
@@ -114,11 +114,11 @@
 
 - (NSString *)videoDir
 {
-    NSString *docPath = [PathUtility getDocumentPath];
+    NSString *cachePath = [PathUtility getCachePath];
     
-    [PathUtility createDirectoryAtDocument:@"Video"];
+    [PathUtility createDirectoryAtCache:@"Video"];
     
-    NSString *videoPath = [NSString stringWithFormat:@"%@/Video/", docPath];
+    NSString *videoPath = [NSString stringWithFormat:@"%@/Video/", cachePath];
     return videoPath;
 }
 
@@ -175,6 +175,13 @@
 {
     MKNetworkEngine *engine = [AppDelegate sharedAppDelegate].cacheEngine;
     
+    NSOperationQueue *queue = [engine sharedNetworkQueue];
+    for (NSOperation *op in queue.operations)
+    {
+        [op setQueuePriority:NSOperationQueuePriorityNormal];
+    }
+    
+    
     NSString *dir = [self videoDir];
     for (TrainItem *item in self.trainList)
     {
@@ -198,6 +205,7 @@
                 }
             }];
             [op addDownloadStream:[NSOutputStream outputStreamToFileAtPath:path append:YES]];
+            [op  setQueuePriority:NSOperationQueuePriorityHigh];
             [engine enqueueOperation:op];
         }
     }
@@ -251,11 +259,11 @@
 
 - (NSString *)cachePath
 {
-    NSString *docPath = [PathUtility getDocumentPath];
+    NSString *cachePath = [PathUtility getCachePath];
     
-    [PathUtility createDirectoryAtDocument:@"Video"];
+    [PathUtility createDirectoryAtCache:@"Video"];
     
-    NSString *videoPath = [NSString stringWithFormat:@"%@/Video/", docPath];
+    NSString *videoPath = [NSString stringWithFormat:@"%@/Video/", cachePath];
     NSString *fileName = [self.videoPath md5];
     NSString *path = [NSString stringWithFormat:@"%@%@.mp4", videoPath, fileName];
     return path;

@@ -40,16 +40,16 @@
     [self.menuItems addObject:item];
     
     
-    __weak typeof(self) ws = self;
-    item = [[MenuItem alloc] initWithTitle:kSettingCell_CheckUpdate_Str icon:nil action:^(id<MenuAbleItem> menu) {
-        [ws checkVersion];
-    }];
-    [self.menuItems addObject:item];
-    
-    item = [[MenuItem alloc] initWithTitle:kSettingCell_ClearCache_Str icon:nil action:^(id<MenuAbleItem> menu) {
-        
-    }];
-    [self.menuItems addObject:item];
+//    __weak typeof(self) ws = self;
+//    item = [[MenuItem alloc] initWithTitle:kSettingCell_CheckUpdate_Str icon:nil action:^(id<MenuAbleItem> menu) {
+//        [ws checkVersion];
+//    }];
+//    [self.menuItems addObject:item];
+//    
+//    item = [[MenuItem alloc] initWithTitle:kSettingCell_ClearCache_Str icon:nil action:^(id<MenuAbleItem> menu) {
+//        
+//    }];
+//    [self.menuItems addObject:item];
 }
 
 - (void)checkVersion
@@ -144,18 +144,18 @@
     MenuItem *item = [self.menuItems objectAtIndex:indexPath.section];
     cell.textLabel.text = item.title;
     
-    if (indexPath.section == self.menuItems.count - 1)
-    {
-        NSString *doc = [PathUtility getDocumentPath];
-        NSString *video = [NSString stringWithFormat:@"%@/Video/", doc];
-        unsigned long long int size = [PathUtility folderSize:video];
-        
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2fM", size / (1024*1024.0)];
-    }
-    else
-    {
-        cell.detailTextLabel.text = nil;
-    }
+//    if (indexPath.section == self.menuItems.count - 1)
+//    {
+//        NSString *tempPath = [PathUtility getTemporaryPath];
+//        NSString *video = [NSString stringWithFormat:@"%@/Video/", tempPath];
+//        unsigned long long int size = [PathUtility folderSize:video];
+//        
+//        cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2fM", size / (1024*1024.0)];
+//    }
+//    else
+//    {
+//        cell.detailTextLabel.text = nil;
+//    }
     
     return cell;
 }

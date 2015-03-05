@@ -19,8 +19,8 @@
 
 - (void)redirectConsoleLog:(NSString *)logFile
 {
-    NSString *docPath = [PathUtility getDocumentPath];
-    NSString *logfilePath = [NSString stringWithFormat:@"%@/%@", docPath, logFile];
+    NSString *cachePath = [PathUtility getCachePath];
+    NSString *logfilePath = [NSString stringWithFormat:@"%@/%@", cachePath, logFile];
     //    freopen([logfilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
     freopen([logfilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
 }
