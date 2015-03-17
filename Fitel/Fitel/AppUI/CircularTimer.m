@@ -18,13 +18,6 @@
 - (void)dealloc
 {
     [self stop];
-    
-    AudioServicesRemoveSystemSoundCompletion(_startID);
-    AudioServicesDisposeSystemSoundID(_endId);
-    AudioServicesRemoveSystemSoundCompletion(_endId);
-    AudioServicesDisposeSystemSoundID(_endId);
-    
-    
 }
 
 - (void)addOwnViews
@@ -35,26 +28,10 @@
     _timerText.adjustsFontSizeToFitWidth = YES;
     _timerText.lineBreakMode = NSLineBreakByWordWrapping;
     _timerText.numberOfLines = 0;
-
+    
     _timerText.adjustsFontSizeToFitWidth = YES;
     [self addSubview:_timerText];
     self.backgroundColor = kClearColor;
-    
-    // 要播放的音频文件地址
-    NSString *urlPath =  [[NSBundle mainBundle] pathForResource:@"start" ofType:@"m4a"];
-    NSURL *url = [NSURL fileURLWithPath:urlPath];
-    // 声明需要播放的音频文件ID[unsigned long]
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)(url), &_startID);
-//     AudioServicesAddSystemSoundCompletion(_startID, NULL, NULL, &playFinished, (__bridge void *)(self));
-    
-    // 要播放的音频文件地址
-    NSString *endurlPath =  [[NSBundle mainBundle] pathForResource:@"end" ofType:@"m4a"];
-    NSURL *endurl = [NSURL fileURLWithPath:endurlPath];
-    // 声明需要播放的音频文件ID[unsigned long]
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)(endurl), &_endId);
-//     AudioServicesAddSystemSoundCompletion(_endId, NULL, NULL, &playFinished, (__bridge void *)(self));
-    
-
 }
 
 void playFinished(SystemSoundID ssID, void* clientData)
@@ -89,7 +66,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
     if (self.trainKV)
     {
         CGFloat selfRadius = MIN(rect.size.width, rect.size.height)/2;
-        CGFloat por = [IOSDeviceConfig sharedConfig].isPortrait ? 16 :10;
+        CGFloat por = [IOSDeviceConfig sharedConfig].isPortrait ? 16 : 10;
         CGFloat selfInteralRadius = selfRadius - por ;
         //General circle info
         CGPoint center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
@@ -161,7 +138,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
         _timerText.text = [NSString stringWithFormat:kTrain_Wait_Format_Str, (int)(_duration - _elapseTime)];
         _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:self.pauseAction userInfo:nil repeats:YES];
     }
-
+    
 }
 
 - (void)sleep
@@ -178,6 +155,23 @@ void playFinished(SystemSoundID ssID, void* clientData)
     }
 }
 
+- (void)playStartSound
+{
+    NSString *urlPath =  [[NSBundle mainBundle] pathForResource:@"start" ofType:@"m4a"];
+    NSURL *startURL = [NSURL fileURLWithPath:urlPath];
+    _player = [[AVPlayer alloc] initWithURL:startURL];
+    [_player play];
+}
+
+- (void)playEndSound
+{
+    NSString *endurlPath =  [[NSBundle mainBundle] pathForResource:@"end" ofType:@"m4a"];
+    
+    NSURL *endURL = [NSURL fileURLWithPath:endurlPath];
+    _player = [[AVPlayer alloc] initWithURL:endURL];
+    [_player play];
+}
+
 - (void)onWait
 {
     _elapseTime += 0.2;
@@ -186,7 +180,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
     [self setNeedsDisplay];
     if (fabs(_elapseTime - ( _duration - 4.8)) < 0.001)
     {
-        AudioServicesPlayAlertSound(_startID);
+        [self playStartSound];
     }
     
     if (fabs(_elapseTime - _duration) < 0.001)
@@ -208,7 +202,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
     [self setNeedsDisplay];
     if (fabs(_elapseTime - ( _duration - 4.8))<0.001)
     {
-        AudioServicesPlayAlertSound(_startID);
+        [self playStartSound];
     }
     
     if (fabs(_elapseTime - _duration) < 0.001)
@@ -227,7 +221,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
     if (self.trainKV)
     {
         [_timer invalidate];
-
+        
         _elapseTime = 0;
         _duration = self.trainKV.duration;
         self.progressColor = kBlueColor;
@@ -246,7 +240,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
     [self setNeedsDisplay];
     if (fabs(_elapseTime - ( _duration - 0.6))<0.001)
     {
-        AudioServicesPlayAlertSound(_endId);
+        [self playEndSound];
     }
     
     if (fabs(_elapseTime - _duration) < 0.001)
@@ -266,6 +260,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
     [_timer invalidate];
     _timer = nil;
     [self setNeedsDisplay];
+    [_player pause];
 }
 
 - (void)pause
@@ -273,6 +268,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
     _isPaused = YES;
     [_timer invalidate];
     _timer = nil;
+    [_player pause];
 }
 - (void)pauseOrResume
 {
@@ -280,17 +276,21 @@ void playFinished(SystemSoundID ssID, void* clientData)
     {
         _isPaused = YES;
         [self pause];
+        [_player pause];
     }
     else
     {
         _isPaused = NO;
         [self resume];
+        [_player play];
     }
 }
 - (void)resume
 {
     _isPaused = NO;
     _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:self.pauseAction userInfo:nil repeats:YES];
+    [_player play];
+    
 }
 
 @end

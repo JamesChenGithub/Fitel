@@ -6,8 +6,12 @@
 
 #import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
+
+
 
 typedef void (^CircularTimerEndEvent)(TrainKeyValue *trainKV);
+
 
 @interface CircularTimer : UIView
 {
@@ -15,9 +19,11 @@ typedef void (^CircularTimerEndEvent)(TrainKeyValue *trainKV);
     NSTimer *_timer;
     NSInteger _duration;
     
-    SystemSoundID _startID;
-    SystemSoundID _endId;
+    AVPlayer *_player;
     BOOL _isPaused;
+    
+    
+    
     
 }
 

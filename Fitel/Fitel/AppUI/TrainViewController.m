@@ -142,7 +142,7 @@
 
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     [_timerView pause];
