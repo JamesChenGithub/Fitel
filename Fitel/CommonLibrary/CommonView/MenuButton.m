@@ -1,9 +1,9 @@
 //
 //  MenuButton.m
-//  TCLSales
+//  Fitel
 //
 //  Created by ken liu on 14-1-17.
-//  Copyright (c) 2014年 iLunch. All rights reserved.
+//  Copyright (c) 2014年 Fitel. All rights reserved.
 //
 
 #import "MenuButton.h"

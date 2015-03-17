@@ -1,6 +1,6 @@
 //
 //  ImageTitleButton.h
-//  iLunch
+//  Fitel
 //
 //  Created by James on 3/21/14.
 //  Copyright (c) 2014 James. All rights reserved.

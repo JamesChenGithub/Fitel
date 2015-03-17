@@ -1,9 +1,9 @@
 //
 //  KeyChainHelper.m
-//  TCLSales
+//  Fitel
 //
 //  Created by 陈耀武 on 14-2-19.
-//  Copyright (c) 2014年 iLunch. All rights reserved.
+//  Copyright (c) 2014年 Fitel. All rights reserved.
 //
 
 #import "KeyChainHelper.h"

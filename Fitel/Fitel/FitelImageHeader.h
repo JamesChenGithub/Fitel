@@ -1,13 +1,13 @@
 //
-//  iLunchImageHeader.h
-//  iLunch
+//  FitelImageHeader.h
+//  Fitel
 //
 //  Created by James on 15-1-4.
 //  Copyright (c) 2015年 James Chen. All rights reserved.
 //
 
-#ifndef iLunch_iLunchImageHeader_h
-#define iLunch_iLunchImageHeader_h
+#ifndef Fitel_FitelImageHeader_h
+#define Fitel_FitelImageHeader_h
 
 
 #define kNav_Back_Icon [UIImage imageNamed:@"topbar_icon_back"]

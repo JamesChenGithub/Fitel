@@ -1,9 +1,9 @@
 //
 //  NSDate+_Common.h
-//  TCLSales
+//  Fitel
 //
 //  Created by ken liu on 14-1-21.
-//  Copyright (c) 2014年 iLunch. All rights reserved.
+//  Copyright (c) 2014年 Fitel. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

@@ -1,9 +1,9 @@
 //
 //  UICollectionViewController+ADScaleTransition.h
-//  iLunchCommon
+//  FitelCommon
 //
 //  Created by James on 3/7/14.
-//  Copyright (c) 2014 iLunch. All rights reserved.
+//  Copyright (c) 2014 Fitel. All rights reserved.
 //
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0
 #import <UIKit/UIKit.h>

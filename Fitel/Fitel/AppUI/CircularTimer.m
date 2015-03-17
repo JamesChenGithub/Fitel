@@ -31,8 +31,8 @@
 {
     _timerText = [[UILabel alloc] init];
     _timerText.textAlignment = NSTextAlignmentCenter;
-    _timerText.font = [UIFont systemFontOfSize:14];
-
+    _timerText.font = [UIFont systemFontOfSize:16];
+    _timerText.adjustsFontSizeToFitWidth = YES;
     _timerText.lineBreakMode = NSLineBreakByWordWrapping;
     _timerText.numberOfLines = 0;
 
@@ -89,7 +89,8 @@ void playFinished(SystemSoundID ssID, void* clientData)
     if (self.trainKV)
     {
         CGFloat selfRadius = MIN(rect.size.width, rect.size.height)/2;
-        CGFloat selfInteralRadius = selfRadius - 10;
+        CGFloat por = [IOSDeviceConfig sharedConfig].isPortrait ? 16 :10;
+        CGFloat selfInteralRadius = selfRadius - por ;
         //General circle info
         CGPoint center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
         float strokeWidth = selfRadius - selfInteralRadius;
@@ -261,6 +262,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
 
 - (void)stop
 {
+    _isPaused = YES;
     [_timer invalidate];
     _timer = nil;
     [self setNeedsDisplay];
@@ -268,6 +270,7 @@ void playFinished(SystemSoundID ssID, void* clientData)
 
 - (void)pause
 {
+    _isPaused = YES;
     [_timer invalidate];
     _timer = nil;
 }
@@ -275,15 +278,18 @@ void playFinished(SystemSoundID ssID, void* clientData)
 {
     if (_timer)
     {
+        _isPaused = YES;
         [self pause];
     }
     else
     {
+        _isPaused = NO;
         [self resume];
     }
 }
 - (void)resume
 {
+    _isPaused = NO;
     _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:self.pauseAction userInfo:nil repeats:YES];
 }
 

@@ -1,6 +1,6 @@
 //
 //  PageScrollView.m
-//  iLunch
+//  Fitel
 //
 //  Created by James Chen on 3/5/13.
 //  Copyright (c) 2013 ken liu. All rights reserved.

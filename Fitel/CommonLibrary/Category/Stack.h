@@ -1,9 +1,9 @@
 //
 //  Stack.h
-//  iLunchCommon
+//  FitelCommon
 //
 //  Created by James on 3/5/14.
-//  Copyright (c) 2014 iLunch. All rights reserved.
+//  Copyright (c) 2014 Fitel. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

@@ -1,13 +1,13 @@
 //
 //  ADHeaders.h
-//  iLunchCommon
+//  FitelCommon
 //
 //  Created by James on 3/7/14.
-//  Copyright (c) 2014 iLunch. All rights reserved.
+//  Copyright (c) 2014 Fitel. All rights reserved.
 //
 
-#ifndef iLunchCommon_ADHeaders_h
-#define iLunchCommon_ADHeaders_h
+#ifndef FitelCommon_ADHeaders_h
+#define FitelCommon_ADHeaders_h
 
 
 #import "UIView+CaptureImage.h"

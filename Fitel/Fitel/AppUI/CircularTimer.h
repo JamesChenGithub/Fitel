@@ -17,6 +17,7 @@ typedef void (^CircularTimerEndEvent)(TrainKeyValue *trainKV);
     
     SystemSoundID _startID;
     SystemSoundID _endId;
+    BOOL _isPaused;
     
 }
 
@@ -28,6 +29,8 @@ typedef void (^CircularTimerEndEvent)(TrainKeyValue *trainKV);
 @property (nonatomic, copy) CircularTimerEndEvent waitEndEvent;
 @property (nonatomic, copy) CircularTimerEndEvent runEndEvent;
 @property (nonatomic, copy) CircularTimerEndEvent sleepEndEvent;
+
+@property (nonatomic, readonly) BOOL isPaused;
 
 - (void)start;
 

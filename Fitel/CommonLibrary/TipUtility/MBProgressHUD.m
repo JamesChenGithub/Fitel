@@ -756,7 +756,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 //    }
 //    else
 //    {
-//        self.center = [iLunchAppDelegate sharedAppDelegate].window.center;
+//        self.center = [FitelAppDelegate sharedAppDelegate].window.center;
 //    }
 //    
 //    label.frame = self.bounds;
@@ -861,7 +861,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 //    }
 //    else
 //    {
-//        self.center = [iLunchAppDelegate sharedAppDelegate].window.center;
+//        self.center = [FitelAppDelegate sharedAppDelegate].window.center;
 //    }
 //    
 //    CGRect incRect = indicator.frame;

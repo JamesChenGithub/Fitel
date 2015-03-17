@@ -1,9 +1,9 @@
 //
 //  UILabel+UILabel_Common.h
-//  TCLSales
+//  Fitel
 //
 //  Created by ken liu on 14-1-18.
-//  Copyright (c) 2014年 iLunch. All rights reserved.
+//  Copyright (c) 2014年 Fitel. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

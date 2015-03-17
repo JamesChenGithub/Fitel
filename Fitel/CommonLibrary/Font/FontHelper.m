@@ -13,7 +13,7 @@
 static FontHelper *_sharedInstance = nil;
 
 
-#if kIsiLunchAppBuild
+#if kIsFitelAppBuild
 
 #define MYRIADPRO_BOLD          @"MyriadPro-Bold"
 #define MYRIADPRO_LIGHT         @"MyriadPro-Light"
@@ -42,7 +42,7 @@ static FontHelper *_sharedInstance = nil;
 
 - (void)configIPhoneFonts
 {
-#if kIsiLunchAppBuild
+#if kIsFitelAppBuild
     const CGFloat size = 14;
     _titleFont = [UIFont fontWithName:MYRIADPRO_REGULAR size:18];
     _subTitleFont = [UIFont fontWithName:MYRIADPRO_REGULAR size:size];
@@ -90,7 +90,7 @@ static FontHelper *_sharedInstance = nil;
 
 - (UIFont *)fontWithSize:(CGFloat)size
 {
-#if kIsiLunchAppBuild
+#if kIsFitelAppBuild
     return [UIFont fontWithName:MYRIADPRO_REGULAR size:size];
 #else
     return [UIFont systemFontOfSize:size];
@@ -98,7 +98,7 @@ static FontHelper *_sharedInstance = nil;
 }
 - (UIFont *)boldFontWithSize:(CGFloat)size
 {
-#if kIsiLunchAppBuild
+#if kIsFitelAppBuild
     return [UIFont fontWithName:MYRIADPRO_BOLD size:size];
 #else
     return [UIFont boldSystemFontOfSize:size];

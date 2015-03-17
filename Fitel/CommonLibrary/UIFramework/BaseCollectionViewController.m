@@ -1,9 +1,9 @@
 //
 //  BaseCollectionViewController.m
-//  iLunchCommon
+//  FitelCommon
 //
 //  Created by James on 3/12/14.
-//  Copyright (c) 2014 iLunch. All rights reserved.
+//  Copyright (c) 2014 Fitel. All rights reserved.
 //
 
 #import "BaseCollectionViewController.h"

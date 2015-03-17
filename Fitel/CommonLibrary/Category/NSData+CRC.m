@@ -1,6 +1,6 @@
 //
 //  NSData+CRC.m
-//  iLunch
+//  Fitel
 //
 //  Created by Ken on 3/25/14.
 //  Copyright (c) 2014 James. All rights reserved.

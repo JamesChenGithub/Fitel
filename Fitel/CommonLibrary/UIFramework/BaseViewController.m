@@ -1,9 +1,9 @@
 //
 //  BaseViewController.m
-//  TCLSales
+//  Fitel
 //
 //  Created by 陈耀武 on 14-1-15.
-//  Copyright (c) 2014年 iLunch. All rights reserved.
+//  Copyright (c) 2014年 Fitel. All rights reserved.
 //
 
 #import "BaseViewController.h"
@@ -18,11 +18,11 @@
 {
     [super viewDidLoad];
     [self addBackItem];
-#if kIsILunchSeller
+#if kIsFitelSeller
     self.navigationController.navigationBar.hidden = NO;
 #endif
 }
-#if kIsILunchSeller
+#if kIsFitelSeller
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];

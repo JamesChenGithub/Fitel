@@ -1,13 +1,13 @@
 //
 //  AppColor.h
-//  iLunchCommon
+//  FitelCommon
 //
 //  Created by James on 3/6/14.
-//  Copyright (c) 2014 iLunch. All rights reserved.
+//  Copyright (c) 2014 Fitel. All rights reserved.
 //
 
-#ifndef iLunchCommon_AppColor_h
-#define iLunchCommon_AppColor_h
+#ifndef FitelCommon_AppColor_h
+#define FitelCommon_AppColor_h
 
 // TODO：根据需要作修改
 

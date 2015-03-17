@@ -1,9 +1,9 @@
 //
 //  NSObject_Global.h
-//  TCLSales
+//  Fitel
 //
 //  Created by ken liu on 14-1-16.
-//  Copyright (c) 2014年 iLunch. All rights reserved.
+//  Copyright (c) 2014年 Fitel. All rights reserved.
 //
 
 //主窗口的宽、高

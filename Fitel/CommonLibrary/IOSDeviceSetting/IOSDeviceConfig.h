@@ -1,6 +1,6 @@
 //
 //  IOSDeviceConfig.h
-//  iLunch
+//  Fitel
 //
 //  Created by ken liu on 13-1-11.
 //  Copyright (c) 2013年 ken liu. All rights reserved.

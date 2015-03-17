@@ -1,14 +1,14 @@
 
 //
 //  CGRectAdditions.h
-//  iLunchCommon
+//  FitelCommon
 //
 //  Created by 陈耀武 on 14-2-21.
-//  Copyright (c) 2014年 iLunch. All rights reserved.
+//  Copyright (c) 2014年 Fitel. All rights reserved.
 //
 
-#ifndef iLunchCommon_CGRectAdditions_h
-#define iLunchCommon_CGRectAdditions_h
+#ifndef FitelCommon_CGRectAdditions_h
+#define FitelCommon_CGRectAdditions_h
 
 static __inline__ CGRect CGRectFromCGSize( CGSize size )
 {

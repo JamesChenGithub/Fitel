@@ -29,9 +29,9 @@
 
 #import "AppUIHeaders.h"
 
-#if kIsILunchSeller
+#if kIsFitelSeller
 
-#import "iLunchSellerHeaders.h"
+#import "FitelSellerHeaders.h"
 
 #endif
 

@@ -231,7 +231,7 @@
 
 - (void)configOwnViews
 {
-    [self request:YES];
+    [self request:NO];
 }
 
 

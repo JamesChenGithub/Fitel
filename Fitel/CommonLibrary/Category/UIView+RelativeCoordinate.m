@@ -1,6 +1,6 @@
 //
 //  UIView+RelativeCoordinate.m
-//  iLunch
+//  Fitel
 //
 //  Created by James on 5/21/14.
 //  Copyright (c) 2014 James. All rights reserved.

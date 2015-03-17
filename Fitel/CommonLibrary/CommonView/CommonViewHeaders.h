@@ -1,13 +1,13 @@
 //
 //  CommonViewHeaders.h
-//  TCLSales
+//  Fitel
 //
 //  Created by ken liu on 14-1-17.
-//  Copyright (c) 2014年 iLunch. All rights reserved.
+//  Copyright (c) 2014年 Fitel. All rights reserved.
 //
 
-#ifndef TCLSales_CommonViewHeaders_h
-#define TCLSales_CommonViewHeaders_h
+#ifndef Fitel_CommonViewHeaders_h
+#define Fitel_CommonViewHeaders_h
 
 
 #define kSearhViewHideKeyBoardNotification              @"SearhViewHideKeyBoardNotification"

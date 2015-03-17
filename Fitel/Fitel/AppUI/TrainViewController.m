@@ -134,6 +134,18 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
+    
+    if (_timerView.isPaused)
+    {
+        [_timerView resume];
+    }
+
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [_timerView pause];
 }
 
 - (void)viewDidLoad
@@ -287,7 +299,7 @@
         [_listView sizeWith:CGSizeMake(rect.size.width, 46)];
         [_listView alignParentBottom];
         
-        [_timerView sizeWith:CGSizeMake(100, 100)];
+        [_timerView sizeWith:CGSizeMake(160, 160)];
         
         _timerView.center = CGPointMake(rect.size.width/2, (_listView.frame.origin.y - (_playerView.frame.origin.y + _playerView.frame.size.height))/2 + (_playerView.frame.origin.y + _playerView.frame.size.height));
         

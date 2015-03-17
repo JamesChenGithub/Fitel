@@ -1,6 +1,6 @@
 //
 //  UINavigationController+Transition.m
-//  iLunch
+//  Fitel
 //
 //  Created by James on 3/18/14.
 //  Copyright (c) 2014 James. All rights reserved.
