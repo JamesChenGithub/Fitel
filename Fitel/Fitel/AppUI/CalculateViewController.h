@@ -38,7 +38,7 @@
 @end
 
 
-@interface CalculateViewController : BaseViewController<UIActionSheetDelegate>
+@interface CalculateViewController : BaseViewController<UIActionSheetDelegate, UIScrollViewDelegate>
 {
     UIScrollView *_scrollView;
     GenderArea *_gender;

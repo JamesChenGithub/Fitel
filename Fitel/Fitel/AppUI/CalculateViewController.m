@@ -160,14 +160,25 @@
 {
     if (tap.state == UIGestureRecognizerStateEnded)
     {
-        [_ageArea.textField resignFirstResponder];
-        [_heightArea.textField resignFirstResponder];
-        [_weightArea.textField resignFirstResponder];
+        [self hideKeyboard];
     }
+}
+
+- (void)hideKeyboard
+{
+    [_ageArea.textField resignFirstResponder];
+    [_heightArea.textField resignFirstResponder];
+    [_weightArea.textField resignFirstResponder];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self hideKeyboard];
 }
 - (void)addOwnViews
 {
     _scrollView = [[UIScrollView alloc] init];
+    _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
     
     _gender = [[GenderArea alloc] init];
